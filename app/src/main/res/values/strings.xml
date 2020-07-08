@@ -1,0 +1,26 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name">Ma réu</string>
+    <string name="name">"Maréu"</string>
+    <string name="maRéu">"Gestion de réservation de salles"</string>
+    <string name="by">"by Lamzone"</string>
+    <string name="newReunion">Reserver une nouvelle salle</string>
+    <string name="reunionDetail">Détails de la réunion</string>
+    <string name="save">Créer</string>
+    <string name="cancel">Annuler la réunion</string>
+    <string-array name="rooms">
+        <item>Salle A</item>
+        <item>Salle B</item>
+        <item>Salle C</item>
+        <item>Salle D</item>
+        <item>Salle E</item>
+    </string-array>
+    <string name="date">Sélectionnez une date</string>
+    <string name="time">Sélectionnez un horaire</string>
+    <string name="object">Entrez un objet</string>
+    <string name="people">Saisir les e-mails des participants</string>
+    <string name="booking">Nouvelle réunion</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="reunionName">Réunion A - 14h00 - Peach</string>
+    <string name="reunionEmails" tools:ignore="TypographyEllipsis">maxime@lamzone.com, alex@lamzo... </string>
+</resources>

@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.NewReunion"
+    android:background="@color/colorPrimaryDark"
+    tools:ignore="MissingClass">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:ignore="ScrollViewSize">
+
+        <Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/blue"
+            tools:ignore="MissingConstraints" />
+
+        <!--return button -->
+        <ImageView
+            android:id="@+id/back_arrow"
+            android:layout_width="44dp"
+            android:layout_height="32dp"
+            android:src="@drawable/ic_baseline_white_arrow_back_24"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_editor_absoluteX="-3dp"
+            tools:layout_editor_absoluteY="16dp" />
+
+        <!-- reunion details sentence-->
+        <TextView
+            android:id="@+id/booking"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/booking"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            android:textStyle="normal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.489"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/back_arrow"
+            app:layout_constraintVertical_bias="0.077" />
+
+
+        <!-- cardview with all the reunion details -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/details"
+            android:layout_width="392dp"
+            android:layout_height="500dp"
+            android:layout_marginTop="20dp"
+            app:cardCornerRadius="15dp"
+            android:layout_marginBottom="80dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/booking"
+            app:layout_constraintHorizontal_bias="0.473"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:cardBackgroundColor="@color/white">
+
+
+
+            <!--Select room-->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Choisir une salle"
+                android:textSize="18sp"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"/>
+            <Spinner
+                android:id="@+id/roomList"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="50dp" />
+
+
+            <!--Select date-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Le :"
+                android:textSize="18sp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop = "150dp" />
+
+
+            <!--Select time-->
+            <EditText
+                android:id="@+id/date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="140dp"
+                android:layout_marginEnd="10dp"
+                android:text="@string/date" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="A :"
+                android:textSize="18sp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop = "235dp" />
+            <EditText
+                android:id="@+id/time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/time"
+                android:layout_marginTop = "225dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="50dp"/>
+
+            <!--Enter an object-->
+            <EditText
+                android:id="@+id/id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/object"
+                android:layout_marginTop = "310dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="50dp"/>
+
+
+
+            <!--Selecte collegue's e-mail-->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/emailsLyt"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="7dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="400dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/emails"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:lines="4"
+                    android:minLines="4"
+                    android:ems="10"
+                    android:hint="@string/people"
+                    android:inputType="textEmailAddress"/>
+
+                    <ListView
+                    android:id="@+id/emailList"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <!-- saving button -->
+        <Button
+            android:id="@+id/save"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.983"
+            android:background="@drawable/ic_baseline_check_circle_24"
+            />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
