@@ -1,16 +1,8 @@
 package com.mystihgreeh.mareu.model;
 
-import android.widget.EditText;
-import android.widget.Spinner;
-
-import com.google.android.material.textfield.TextInputEditText;
-
 import java.util.Objects;
 
 public class Reunion {
-
-    /** Identifier */
-    private String id;
 
     /** Room name */
     private String room;
@@ -21,6 +13,9 @@ public class Reunion {
     /** Time */
     private String time;
 
+    /** Object */
+    private String object;
+
     /** emails */
     private String emails;
 
@@ -29,25 +24,19 @@ public class Reunion {
 
     /**
      * Constructor
-     * @param id
      * @param room
      * @param date
      * @param time
+     * @param object
      * @param emails
      */
-    public Reunion(String id, String room, String date, String time, String emails){
-        this.id = id;
+    public Reunion(String room, String date, String time, String object, String emails){
+
         this.room = room;
         this.date = date;
         this.time = time;
+        this.object = object;
         this.emails = emails;
-    }
-
-    public String getId() {
-        return id;
-    }
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getRoom() {
@@ -67,6 +56,13 @@ public class Reunion {
         this.time = time;
     }
 
+    public String getId() {
+        return object;
+    }
+    public void setId(String id) {
+        this.object = id;
+    }
+
     public String getEmails() {return emails; }
     public void setEmails(String emails) {this.emails = emails; }
 
@@ -76,12 +72,12 @@ public class Reunion {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Reunion reunion = (Reunion) o;
-        return Objects.equals(id, reunion.id);
+        return Objects.equals(object, reunion.object);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(object);
     }
 
     public void remove(Reunion reunion) {

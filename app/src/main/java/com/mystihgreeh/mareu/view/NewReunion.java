@@ -3,6 +3,7 @@ package com.mystihgreeh.mareu.view;
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
@@ -19,13 +20,17 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.FragmentActivity;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.mystihgreeh.mareu.R;
+import com.mystihgreeh.mareu.model.Reunion;
 import com.mystihgreeh.mareu.service.ReunionApiService;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Objects;
 
 import butterknife.OnClick;
 
@@ -35,12 +40,14 @@ public class NewReunion extends AppCompatActivity implements AdapterView.OnItemS
 
 
     ImageView back_arrow;
+    Spinner room;
     EditText date_in;
     EditText time_in;
-    EditText id;
+    EditText object;
     TextInputEditText emails;
     Button addButton;
 
+    private Reunion reunion;
     private ReunionApiService mApiService;
 
 
@@ -50,9 +57,10 @@ public class NewReunion extends AppCompatActivity implements AdapterView.OnItemS
         setContentView(R.layout.activity_new_reunion);
 
         back_arrow = findViewById(R.id.back_arrow);
+        room = findViewById(R.id.roomList);
         date_in = findViewById(R.id.date);
         time_in = findViewById(R.id.time);
-        id = findViewById(R.id.id);
+        object = findViewById(R.id.reunion_object);
         emails = findViewById(R.id.emails);
         addButton = findViewById(R.id.save);
 
@@ -169,19 +177,41 @@ public class NewReunion extends AppCompatActivity implements AdapterView.OnItemS
     public void onNothingSelected(AdapterView<?> parent) {
     }
 
+    //Book the reunion when user click on addButton
     @OnClick(R.id.addButton)
     void addReunion() {
+        Reunion neighbour = new Reunion(
+                room.getSelectedItem().toString(),
+                date_in.getText().toString(),
+                time_in.getText().toString(),
+                object.getText().toString(),
+                emails.getHint().toString()
+        );
+        mApiService.createReunion(reunion);
         finish();
+    }
+
+    // Enable the Create button onluy if all the fields are filled
+    public void enableCreateButtonIfReady() {
+        boolean isReady = (Objects.requireNonNull(room.isSelected()
+                && date_in.getText().length() > 0
+                && time_in.getText().length() > 0
+                && object.getText().length() > 0
+                && emails.getText().length() > 0));
+
+        if (isReady){
+            addButton.setEnabled(true);
+        }
     }
 
     /**
      * Used to navigate to this activity
      * @param activity
      */
-    /*public static void navigate(FragmentActivity activity) {
+    public static void navigate(FragmentActivity activity) {
         Intent intent = new Intent(activity, NewReunion.class);
         ActivityCompat.startActivity(activity, intent, null);
-    }*/
+    }
 }
 
 

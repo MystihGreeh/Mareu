@@ -5,6 +5,7 @@ import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -36,6 +37,7 @@ public class MyReunionListRecyclerViewAdapter extends RecyclerView.Adapter<MyReu
         mReunion = items;
     }
 
+    @NonNull
     @Override
     public MyReunionListRecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
@@ -46,13 +48,14 @@ public class MyReunionListRecyclerViewAdapter extends RecyclerView.Adapter<MyReu
     @Override
     public void onBindViewHolder(@NonNull MyReunionListRecyclerViewAdapter.ViewHolder holder, int position) {
         final Reunion reunion = mReunion.get(position);
-        Glide.with(holder.mReunionAvatar.getContext())
+        /*Glide.with(holder.mReunionAvatar.getContext())
                 .load(reunion.getId())
-                .into(holder.mReunionAvatar);
+                .into(holder.mReunionAvatar);*/
 
-        holder.mReunionDetails.setText(reunion.getId());
-        holder.mRoom.setText(reunion.getRoom());
-        holder.mTime.setText(reunion.getTime());
+        //holder.mRoom.setText(reunion.getRoom());
+        //holder.mTime.setText(reunion.getTime());
+        holder.mReunionObject.setText(reunion.getId());
+        holder.mEmails.setText(reunion.getEmails());
 
         //User click on the delete button to delete the reunion
         holder.mDeleteButton.setOnClickListener(new View.OnClickListener() {
@@ -82,26 +85,28 @@ public class MyReunionListRecyclerViewAdapter extends RecyclerView.Adapter<MyReu
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.item_list_avatar)
-        public ImageView mReunionAvatar;
-        @BindView(R.id.date)
-        public TextView mDate;
-        @BindView(R.id.time)
-        public TextView mTime;
-        @BindView(R.id.room)
-        public TextView mRoom;
-        @BindView(R.id.reunion_details)
-        public TextView mReunionDetails;
-        @BindView(R.id.item_list_delete_button)
-        public ImageButton mDeleteButton;
-        @BindView(R.id.reunion)
-        public ConstraintLayout mConstraintLayout;
 
+        public ImageView mReunionAvatar;
+        public TextView mRoom;
+        public TextView mDate;
+        public TextView mTime;
+        public TextView mReunionObject;
+        public TextView mEmails;
+        public ImageButton mDeleteButton;
+        public FrameLayout mConstraintLayout;
 
 
         public ViewHolder(View itemView) {
             super(itemView);
-            ButterKnife.bind(this, itemView);
+            mRoom = itemView.findViewById(R.id.room);
+            mDate = itemView.findViewById(R.id.date);
+            mTime = itemView.findViewById(R.id.time);
+            mReunionObject = itemView.findViewById(R.id.reunion_details);
+            mEmails = itemView.findViewById(R.id.reunion_emails);
+            mDeleteButton = itemView.findViewById(R.id.item_list_delete_button);
+            mConstraintLayout = itemView.findViewById(R.id.reunion);
+
+
         }
 
     }
