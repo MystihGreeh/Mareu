@@ -8,11 +8,11 @@
     <string name="save">Créer</string>
     <string name="cancel">Annuler la réunion</string>
     <string-array name="rooms">
-        <item>Salle A</item>
-        <item>Salle B</item>
-        <item>Salle C</item>
-        <item>Salle D</item>
-        <item>Salle E</item>
+        <item>Réunion A</item>
+        <item>Réunion B</item>
+        <item>Réunion C</item>
+        <item>Réunion D</item>
+        <item>Réunion E</item>
     </string-array>
     <string name="date">Sélectionnez une date</string>
     <string name="time">Sélectionnez un horaire</string>

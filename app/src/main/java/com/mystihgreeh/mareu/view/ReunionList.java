@@ -1,13 +1,12 @@
 package com.mystihgreeh.mareu.view;
 
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -15,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.mystihgreeh.mareu.R;
-import com.mystihgreeh.mareu.controller.DI;
+import com.mystihgreeh.mareu.DI.Injection;
 import com.mystihgreeh.mareu.events.DeleteReunionEvent;
 import com.mystihgreeh.mareu.model.Reunion;
 import com.mystihgreeh.mareu.service.ReunionApiService;
@@ -49,7 +48,7 @@ public class ReunionList extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
         setContentView(R.layout.activity_reunion_list);
-        mApiService = DI.getReunionApiService();
+        mApiService = Injection.getReunionApiService();
         mRecyclerView = findViewById(R.id.recyclerView);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
@@ -61,9 +60,8 @@ public class ReunionList extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), NewReunion.class);
-                v.getContext().startActivity(intent);
-
-
+                Activity activity = (Activity)v.getContext();
+                activity.startActivityForResult(intent, 1);
             }
         });
 
@@ -73,18 +71,21 @@ public class ReunionList extends AppCompatActivity {
      * Init the List of reunion
      */
     private void initList() {
+        Log.i("debug", "initList appelé");
         mReunion = mApiService.getReunions();
         mRecyclerView.setAdapter(new MyReunionListRecyclerViewAdapter(mReunion));
     }
 
     @Override
     public void onResume() {
+        Log.i("debug", "onResume appelé");
         super.onResume();
         initList();
     }
 
     @Override
     public void onStart() {
+        Log.i("debug", "onStart appelé");
         super.onStart();
         EventBus.getDefault().register(this);
     }
@@ -106,4 +107,13 @@ public class ReunionList extends AppCompatActivity {
         initList();
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1){
+            Reunion reunion = new Reunion(data.getStringExtra("room"), data.getStringExtra("date_in"), data.getStringExtra("time_in"), data.getStringExtra("object"), data.getStringExtra("emails"));
+            mApiService.createReunion(reunion);
+            initList();
+        }
+    }
 }

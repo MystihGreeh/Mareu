@@ -20,7 +20,7 @@
 
     <!-- reunion details sentence-->
     <TextView
-        android:id="@+id/reunion_details"
+        android:id="@+id/reunion_presentation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/reunionDetail"
@@ -46,7 +46,7 @@
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         app:cardCornerRadius="15dp"
-        android:layout_marginBottom="80dp"
+        android:layout_marginBottom="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.473"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -59,7 +59,7 @@
             android:layout_height="50dp"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="20dp"
             android:layout_marginBottom="200dp"
             android:background="@color/white"
             android:text="Réunion B"
@@ -71,7 +71,7 @@
             android:layout_height="50dp"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
-            android:layout_marginTop="150dp"
+            android:layout_marginTop="120dp"
             android:layout_marginBottom="200dp"
             android:layout_width="362dp"
             android:background="@color/white"
@@ -85,7 +85,7 @@
             android:layout_width="362dp"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
-            android:layout_marginTop="250dp"
+            android:layout_marginTop="220dp"
             android:layout_marginBottom="200dp"
             android:background="@color/white"
             android:text="14h30 - 15h30"
@@ -93,13 +93,26 @@
             android:paddingTop="13dp"/>
 
         <TextView
-            android:id="@+id/collegues"
+            android:id="@+id/reunion_details"
+            android:text="Peach"
             android:layout_height="50dp"
             android:layout_width="362dp"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
-            android:layout_marginTop="350dp"
-            android:layout_marginBottom="50dp"
+            android:layout_marginTop="320dp"
+            android:layout_marginBottom="300dp"
+            android:background="@color/white"
+            android:textAlignment="center"
+            android:paddingTop="13dp"/>
+
+        <TextView
+            android:id="@+id/emails"
+            android:layout_height="50dp"
+            android:layout_width="362dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="420dp"
+            android:layout_marginBottom="10dp"
             android:background="@color/white"
             android:text="@string/people"
             android:textAlignment="center"
@@ -109,19 +122,6 @@
 
 
 
-    <!--canceling button-->
-    <Button
-        android:id="@+id/save"
-        android:text="@string/cancel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.983" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

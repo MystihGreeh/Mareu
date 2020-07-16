@@ -11,7 +11,7 @@ import java.util.List;
 
 public class DummyReunionApiService implements ReunionApiService{
 
-    private List<Reunion> reunion = DummyReunionGenerator.generateReunion();
+    private List<Reunion> reunions = DummyReunionGenerator.generateReunion();
 
 
 
@@ -20,7 +20,7 @@ public class DummyReunionApiService implements ReunionApiService{
      */
     @Override
     public List<Reunion> getReunions() {
-        return reunion;
+        return reunions;
     }
 
     /**
@@ -28,7 +28,7 @@ public class DummyReunionApiService implements ReunionApiService{
      */
     @Override
     public void deleteReunion(Reunion reunion) {
-        reunion.remove(reunion);
+        reunions.remove(reunion);
     }
 
     /**
@@ -38,6 +38,6 @@ public class DummyReunionApiService implements ReunionApiService{
      */
     @Override
     public void createReunion(Reunion reunion) {
-        reunion.add(reunion);
+        reunions.add(reunion);
     }
 }

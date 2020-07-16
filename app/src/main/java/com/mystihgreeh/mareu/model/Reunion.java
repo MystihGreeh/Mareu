@@ -1,8 +1,11 @@
 package com.mystihgreeh.mareu.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.Objects;
 
-public class Reunion {
+public class Reunion implements Parcelable {
 
     /** Room name */
     private String room;
@@ -38,6 +41,26 @@ public class Reunion {
         this.object = object;
         this.emails = emails;
     }
+
+    protected Reunion(Parcel in) {
+        room = in.readString();
+        date = in.readString();
+        time = in.readString();
+        object = in.readString();
+        emails = in.readString();
+    }
+
+    public static final Creator<Reunion> CREATOR = new Creator<Reunion>() {
+        @Override
+        public Reunion createFromParcel(Parcel in) {
+            return new Reunion(in);
+        }
+
+        @Override
+        public Reunion[] newArray(int size) {
+            return new Reunion[size];
+        }
+    };
 
     public String getRoom() {
         return room;
@@ -84,6 +107,21 @@ public class Reunion {
     }
 
     public void add(Reunion reunion) {
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+            dest.writeString(room);
+            dest.writeString(date);
+            dest.writeString(time);
+            dest.writeString(object);
+            dest.writeString(emails);
+
     }
 
 }

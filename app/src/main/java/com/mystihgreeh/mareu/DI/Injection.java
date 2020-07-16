@@ -1,9 +1,9 @@
-package com.mystihgreeh.mareu.controller;
+package com.mystihgreeh.mareu.DI;
 
 import com.mystihgreeh.mareu.service.DummyReunionApiService;
 import com.mystihgreeh.mareu.service.ReunionApiService;
 
-public class DI {
+public class Injection {
 
     private static ReunionApiService service = new DummyReunionApiService();
 

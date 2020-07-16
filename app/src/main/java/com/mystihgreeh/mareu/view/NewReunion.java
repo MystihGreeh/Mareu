@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
@@ -20,10 +21,12 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.mystihgreeh.mareu.DI.Injection;
 import com.mystihgreeh.mareu.R;
 import com.mystihgreeh.mareu.model.Reunion;
 import com.mystihgreeh.mareu.service.ReunionApiService;
@@ -31,9 +34,7 @@ import com.mystihgreeh.mareu.service.ReunionApiService;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Objects;
-
-import butterknife.OnClick;
-
+import java.util.Random;
 
 
 public class NewReunion extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
@@ -47,8 +48,8 @@ public class NewReunion extends AppCompatActivity implements AdapterView.OnItemS
     TextInputEditText emails;
     Button addButton;
 
-    private Reunion reunion;
-    private ReunionApiService mApiService;
+    Reunion reunion;
+    ReunionApiService mApiService;
 
 
     @Override
@@ -63,6 +64,8 @@ public class NewReunion extends AppCompatActivity implements AdapterView.OnItemS
         object = findViewById(R.id.reunion_object);
         emails = findViewById(R.id.emails);
         addButton = findViewById(R.id.save);
+
+        mApiService = Injection.getNewInstanceApiService();
 
         Spinner spinner = findViewById(R.id.roomList);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.rooms, R.layout.support_simple_spinner_dropdown_item);
@@ -100,31 +103,45 @@ public class NewReunion extends AppCompatActivity implements AdapterView.OnItemS
             }
         });
 
-        //Validating the reunion on click
+        /**
+         * Generate a random image. Useful to mock image picker
+         *
+         * @return String
+         */
 
+        /*int[] images = {R.drawable.metting_room_one,R.drawable.meeting_room_two,R.drawable.meeting_room_three,R.drawable.meeting_room_four, R.drawable.meeting_room_five};
+        Random rand = new Random();
+        color.setImageResource(images[rand.nextInt(images.length)]);*/
 
+        //Book the reunion when user click on addButton
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                NewReunion.this.finish();
-            }
-        });
-        addButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                validateEmailAdress(emails);
-                NewReunion.this.finish();
+                Reunion reunion = new Reunion(
+                        room.getSelectedItem().toString(),
+                        date_in.getText().toString(),
+                        time_in.getText().toString(),
+                        object.getText().toString(),
+                        emails.getText().toString());
+
+                Intent intent = new Intent();
+                intent.putExtra("room", room.getSelectedItem().toString());
+                intent.putExtra("date", date_in.getText().toString());
+                intent.putExtra("time", time_in.getText().toString());
+                intent.putExtra("object", object.getText().toString());
+                intent.putExtra("emails", emails.getText().toString());
+                setResult(1, intent);
+                finish();
             }
         });
     }
 
-    private void validateEmailAdress (TextInputEditText emails){
+    private void validateEmailAdress(TextInputEditText emails) {
         String emailInput = emails.getText().toString();
 
-        if (!emailInput.isEmpty() && Patterns.EMAIL_ADDRESS.matcher(emailInput).matches()){
+        if (!emailInput.isEmpty() && Patterns.EMAIL_ADDRESS.matcher(emailInput).matches()) {
             Toast.makeText(this, "Email valide", Toast.LENGTH_SHORT).show();
-        }
-        else {
+        } else {
             Toast.makeText(this, "Email invalide", Toast.LENGTH_SHORT).show();
         }
     }
@@ -145,7 +162,6 @@ public class NewReunion extends AppCompatActivity implements AdapterView.OnItemS
         TimePickerDialog timeDialog = new TimePickerDialog(NewReunion.this, timeSetListener, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true);
         timeDialog.show();
     }
-
 
 
     //Setting date picker
@@ -177,19 +193,6 @@ public class NewReunion extends AppCompatActivity implements AdapterView.OnItemS
     public void onNothingSelected(AdapterView<?> parent) {
     }
 
-    //Book the reunion when user click on addButton
-    @OnClick(R.id.addButton)
-    void addReunion() {
-        Reunion neighbour = new Reunion(
-                room.getSelectedItem().toString(),
-                date_in.getText().toString(),
-                time_in.getText().toString(),
-                object.getText().toString(),
-                emails.getHint().toString()
-        );
-        mApiService.createReunion(reunion);
-        finish();
-    }
 
     // Enable the Create button onluy if all the fields are filled
     public void enableCreateButtonIfReady() {
@@ -199,19 +202,22 @@ public class NewReunion extends AppCompatActivity implements AdapterView.OnItemS
                 && object.getText().length() > 0
                 && emails.getText().length() > 0));
 
-        if (isReady){
+        if (isReady) {
             addButton.setEnabled(true);
         }
     }
 
     /**
      * Used to navigate to this activity
+     *
      * @param activity
      */
     public static void navigate(FragmentActivity activity) {
         Intent intent = new Intent(activity, NewReunion.class);
         ActivityCompat.startActivity(activity, intent, null);
     }
+
+
 }
 
 
