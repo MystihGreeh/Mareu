@@ -87,16 +87,16 @@
 
 
             <!--Select date-->
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Le :"
                 android:textSize="18sp"
                 android:layout_marginLeft="10dp"
-                android:layout_marginTop = "150dp" />
+                android:layout_marginTop = "150dp"
+                />
 
-
-            <!--Select time-->
             <EditText
                 android:id="@+id/date"
                 android:layout_width="match_parent"
@@ -104,7 +104,13 @@
                 android:layout_marginStart="50dp"
                 android:layout_marginTop="140dp"
                 android:layout_marginEnd="10dp"
-                android:text="@string/date" />
+                android:text="@string/date"
+                />
+
+
+
+            <!--Select time-->
+
 
             <TextView
                 android:layout_width="wrap_content"

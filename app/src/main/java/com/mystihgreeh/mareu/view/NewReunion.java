@@ -17,6 +17,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -109,21 +110,12 @@ public class NewReunion extends AppCompatActivity implements AdapterView.OnItemS
          * @return String
          */
 
-        /*int[] images = {R.drawable.metting_room_one,R.drawable.meeting_room_two,R.drawable.meeting_room_three,R.drawable.meeting_room_four, R.drawable.meeting_room_five};
-        Random rand = new Random();
-        color.setImageResource(images[rand.nextInt(images.length)]);*/
 
         //Book the reunion when user click on addButton
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Reunion reunion = new Reunion(
-                        room.getSelectedItem().toString(),
-                        date_in.getText().toString(),
-                        time_in.getText().toString(),
-                        object.getText().toString(),
-                        emails.getText().toString());
-
+                Log.i("debugDate", "date : "+date_in.getText().toString()+" / time : "+time_in.getText().toString());
                 Intent intent = new Intent();
                 intent.putExtra("room", room.getSelectedItem().toString());
                 intent.putExtra("date", date_in.getText().toString());

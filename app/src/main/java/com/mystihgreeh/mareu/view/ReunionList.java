@@ -4,7 +4,11 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -111,9 +115,22 @@ public class ReunionList extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1){
-            Reunion reunion = new Reunion(data.getStringExtra("room"), data.getStringExtra("date_in"), data.getStringExtra("time_in"), data.getStringExtra("object"), data.getStringExtra("emails"));
+            Reunion reunion = new Reunion(data.getStringExtra("room"), data.getStringExtra("date"), data.getStringExtra("time"), data.getStringExtra("object"), data.getStringExtra("emails"));
             mApiService.createReunion(reunion);
             initList();
         }
+    }
+
+
+
+
+
+    //setting the filters menu
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.filters_menu, menu);
+        return true;
     }
 }
