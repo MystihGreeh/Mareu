@@ -172,7 +172,7 @@ public class NewReunion extends AppCompatActivity implements AdapterView.OnItemS
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         String text = parent.getItemAtPosition(position).toString();
-        Toast.makeText(parent.getContext(), text, Toast.LENGTH_LONG).show();
+
     }
 
     //If nothing is selected, the reunion cannot be saved

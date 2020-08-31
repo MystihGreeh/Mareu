@@ -153,7 +153,7 @@ public class ReunionList extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1 && data != null){
-            Reunion reunion = new Reunion(data.getStringExtra("room"), data.getStringExtra("date"), data.getStringExtra("time"), data.getStringExtra("object"), data.getStringExtra("emails"));
+            Reunion reunion = new Reunion(data.getStringExtra("object"), data.getStringExtra("date"), data.getStringExtra("time"), data.getStringExtra("room"), data.getStringExtra("emails"));
             mApiService.createReunion(reunion);
             initList(DEFAULT);
         }

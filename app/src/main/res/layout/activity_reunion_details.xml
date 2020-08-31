@@ -24,9 +24,21 @@
         app:layout_constraintRight_toRightOf="parent"
         app:cardBackgroundColor="@color/colorPrimaryDark">
 
+
+
+
+        <!--Room info-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:text="Salle :"
+            android:textSize="18sp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop = "35dp" />
         <TextView
             android:id="@+id/room"
-            android:layout_width="362dp"
+            android:layout_width="290dp"
             android:layout_height="50dp"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="20dp"
@@ -35,8 +47,21 @@
             android:background="@color/white"
             android:paddingTop="13dp"
             android:text="Luigi"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:layout_marginStart="70dp"/>
 
+
+
+
+        <!--Date info-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:text="Le :"
+            android:textSize="18sp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop = "135dp"/>
         <TextView
             android:id="@+id/date"
             android:layout_height="50dp"
@@ -44,16 +69,29 @@
             android:layout_marginRight="15dp"
             android:layout_marginTop="120dp"
             android:layout_marginBottom="200dp"
-            android:layout_width="362dp"
+            android:layout_width="290dp"
             android:background="@color/white"
             android:text="Mardi 02 juin 2020"
             android:textAlignment="center"
-            android:paddingTop="13dp"/>
+            android:paddingTop="13dp"
+            android:layout_marginStart="70dp"/>
 
+
+
+
+        <!--Time info-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:text="A :"
+            android:textSize="18sp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop = "235dp" />
         <TextView
             android:id="@+id/time"
             android:layout_height="50dp"
-            android:layout_width="362dp"
+            android:layout_width="290dp"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
             android:layout_marginTop="220dp"
@@ -61,25 +99,51 @@
             android:background="@color/white"
             android:text="14h30 - 15h30"
             android:textAlignment="center"
-            android:paddingTop="13dp"/>
+            android:paddingTop="13dp"
+            android:layout_marginStart="70dp" />
 
+
+
+
+        <!--Object info-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:text="Objet :"
+            android:textSize="18sp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop = "335dp" />
         <TextView
             android:id="@+id/reunion_details"
             android:text="Reunion A"
             android:layout_height="50dp"
-            android:layout_width="362dp"
+            android:layout_width="290dp"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
             android:layout_marginTop="320dp"
             android:layout_marginBottom="300dp"
             android:background="@color/white"
             android:textAlignment="center"
-            android:paddingTop="13dp"/>
+            android:paddingTop="13dp"
+            android:layout_marginStart="70dp"/>
 
+
+
+
+        <!--emails info-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:text="e-mail :"
+            android:textSize="18sp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop = "435dp"/>
         <TextView
             android:id="@+id/emails"
             android:layout_height="50dp"
-            android:layout_width="362dp"
+            android:layout_width="290dp"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
             android:layout_marginTop="420dp"
@@ -87,8 +151,9 @@
             android:background="@color/white"
             android:text="@string/people"
             android:textAlignment="center"
-            android:paddingTop="13dp"/>
+            android:paddingTop="13dp"
+            android:layout_marginStart="70dp"/>
+
+
     </androidx.cardview.widget.CardView>
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

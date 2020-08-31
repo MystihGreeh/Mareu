@@ -33,7 +33,7 @@ public class Reunion implements Parcelable {
      * @param object
      * @param emails
      */
-    public Reunion(String room, String date, String time, String object, String emails){
+    public Reunion(String object, String date, String time, String room, String emails){
         this.room = room;
         this.date = date;
         this.time = time;
@@ -42,10 +42,10 @@ public class Reunion implements Parcelable {
     }
 
     protected Reunion(Parcel in) {
-        room = in.readString();
+        object = in.readString();
         date = in.readString();
         time = in.readString();
-        object = in.readString();
+        room = in.readString();
         emails = in.readString();
     }
 
@@ -61,12 +61,13 @@ public class Reunion implements Parcelable {
         }
     };
 
-    public String getRoom() {
-        return room;
+    public String getObject() {
+        return object;
     }
-    public void setRoom(String room) {
-        this.room = room;
+    public void setObject(String object) {
+        this.object = object;
     }
+
 
     public String getDate() { return date;}
     public void setDate(String date) {this.date = date;}
@@ -78,11 +79,11 @@ public class Reunion implements Parcelable {
         this.time = time;
     }
 
-    public String getObject() {
-        return object;
+    public String getRoom() {
+        return room;
     }
-    public void setObject(String object) {
-        this.object = object;
+    public void setRoom(String room) {
+        this.room = room;
     }
 
     public String getEmails() {return emails; }
@@ -116,10 +117,10 @@ public class Reunion implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
 
-            dest.writeString(room);
+            dest.writeString(object);
             dest.writeString(date);
             dest.writeString(time);
-            dest.writeString(object);
+            dest.writeString(room);
             dest.writeString(emails);
 
     }

@@ -60,7 +60,7 @@ public class MyReunionListRecyclerViewAdapter extends RecyclerView.Adapter<MyReu
     @Override
     public void onBindViewHolder(@NonNull MyReunionListRecyclerViewAdapter.ViewHolder holder, int position) {
         final Reunion reunion = mReunion.get(position);
-        holder.mRoom.setText(reunion.getRoom()+" - "+reunion.getTime()+ " - "+reunion.getObject());
+        holder.mRoom.setText(reunion.getObject()+" - "+reunion.getTime()+ " - "+reunion.getRoom());
         holder.mEmails.setText(reunion.getEmails());
         holder.mCcolor.setImageResource(colors[position % colors.length]);
 
