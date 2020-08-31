@@ -11,23 +11,24 @@
         android:theme="@style/AppTheme">
 
         <activity
+            android:parentActivityName=".view.ReunionList"
             android:name=".view.ReunionDetails"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme">
+        </activity>
         <activity
             android:name=".view.NewReunion"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:parentActivityName=".view.ReunionList"
+            android:theme="@style/AppTheme"
+            />
         <activity
             android:name=".view.ReunionList"
-            android:theme="@style/AppTheme"/>
-        <activity
-            android:name=".view.SplashScreen"
-            android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            android:theme="@style/AppTheme">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
         </activity>
+
     </application>
 
 </manifest>

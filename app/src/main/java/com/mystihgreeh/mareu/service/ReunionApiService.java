@@ -2,6 +2,8 @@ package com.mystihgreeh.mareu.service;
 
 import com.mystihgreeh.mareu.model.Reunion;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 
@@ -15,6 +17,9 @@ public interface ReunionApiService {
      * @return {@link List}
      */
     List<Reunion> getReunions();
+    List<Reunion> filteredByDate();
+    List<Reunion> filteredByRoom();
+
 
 
     /**
@@ -29,5 +34,13 @@ public interface ReunionApiService {
      */
     void createReunion(Reunion reunion);
 
+    /**
+     * Filter the list of Reunions
+     * @return {@link List}
+     */
+    List<Reunion> reunionListFilter (boolean isDateFiltered, boolean isLocationFiltered, String roomFilterSelected, Date dateFilterSelected);
 
+    void filteredByDate (Reunion reunion);
+
+    void filteredByRoom (Reunion reunion);
 }

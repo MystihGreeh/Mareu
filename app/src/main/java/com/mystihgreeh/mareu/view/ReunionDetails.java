@@ -3,6 +3,7 @@ package com.mystihgreeh.mareu.view;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -17,7 +18,6 @@ import com.mystihgreeh.mareu.service.ReunionApiService;
 
 public class ReunionDetails extends AppCompatActivity {
 
-    ImageView back_arrow;
     TextView mRoom;
     TextView mDate;
     TextView mTime;
@@ -31,8 +31,9 @@ public class ReunionDetails extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reunion_details);
+        ActionBar actionBar = getActionBar();
+        this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        back_arrow = findViewById(R.id.back_arrow);
         mRoom = findViewById(R.id.room);
         mDate = findViewById(R.id.date);
         mTime = findViewById(R.id.time);
@@ -42,7 +43,6 @@ public class ReunionDetails extends AppCompatActivity {
 
 
         //Get the reunion information
-
         mApiService = Injection.getReunionApiService();
         Intent intent = getIntent();
         reunion = intent.getParcelableExtra("reunion");
@@ -53,17 +53,8 @@ public class ReunionDetails extends AppCompatActivity {
         mRoom.setText(reunion.getRoom());
         mDate.setText(reunion.getDate());
         mTime.setText(reunion.getTime());
-        mReunionObject.setText(reunion.getId());
+        mReunionObject.setText(reunion.getObject());
         mEmails.setText(reunion.getEmails());
-
-
-        // Back button finish the activity when clicked
-        back_arrow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ReunionDetails.this.finish();
-            }
-        });
 
 
 

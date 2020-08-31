@@ -29,7 +29,7 @@ public class MyReunionListRecyclerViewAdapter extends RecyclerView.Adapter<MyReu
     private final List<Reunion> mReunion;
     Random random = new Random();
 
-    Integer [] colors = {
+    Integer[] colors = {
             R.drawable.metting_room_one,
             R.drawable.meeting_room_two,
             R.drawable.meeting_room_three,
@@ -40,7 +40,6 @@ public class MyReunionListRecyclerViewAdapter extends RecyclerView.Adapter<MyReu
             R.drawable.meeting_room_eight,
             R.drawable.meeting_room_nine,
             R.drawable.meeting_room_ten,
-
     };
 
 
@@ -61,9 +60,9 @@ public class MyReunionListRecyclerViewAdapter extends RecyclerView.Adapter<MyReu
     @Override
     public void onBindViewHolder(@NonNull MyReunionListRecyclerViewAdapter.ViewHolder holder, int position) {
         final Reunion reunion = mReunion.get(position);
-        holder.mRoom.setText(reunion.getRoom()+" - "+reunion.getTime()+ " - "+reunion.getId());
+        holder.mRoom.setText(reunion.getRoom()+" - "+reunion.getTime()+ " - "+reunion.getObject());
         holder.mEmails.setText(reunion.getEmails());
-        holder.mCcolor.setImageResource(colors[random.nextInt(colors.length)]);
+        holder.mCcolor.setImageResource(colors[position % colors.length]);
 
 
         //User click on the delete button to delete the reunion
@@ -114,8 +113,6 @@ public class MyReunionListRecyclerViewAdapter extends RecyclerView.Adapter<MyReu
             mDeleteButton = itemView.findViewById(R.id.item_list_delete_button);
             mConstraintLayout = itemView.findViewById(R.id.reunion);
             mCcolor = itemView.findViewById(R.id.reunion_color);
-
-
 
         }
 

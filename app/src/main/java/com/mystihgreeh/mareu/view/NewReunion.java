@@ -1,10 +1,10 @@
 package com.mystihgreeh.mareu.view;
 
 import android.annotation.SuppressLint;
+import android.app.ActionBar;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
@@ -15,14 +15,13 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
+import android.widget.Toolbar;
+
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
 
@@ -35,20 +34,19 @@ import com.mystihgreeh.mareu.service.ReunionApiService;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Objects;
-import java.util.Random;
 
 
 public class NewReunion extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
 
-    ImageView back_arrow;
+
     Spinner room;
     EditText date_in;
     EditText time_in;
     EditText object;
     TextInputEditText emails;
     Button addButton;
-
+    Toolbar toolbar;
     Reunion reunion;
     ReunionApiService mApiService;
 
@@ -57,8 +55,12 @@ public class NewReunion extends AppCompatActivity implements AdapterView.OnItemS
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_reunion);
+        ActionBar actionBar = getActionBar();
+        this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        back_arrow = findViewById(R.id.back_arrow);
+
+
+
         room = findViewById(R.id.roomList);
         date_in = findViewById(R.id.date);
         time_in = findViewById(R.id.time);
@@ -66,7 +68,9 @@ public class NewReunion extends AppCompatActivity implements AdapterView.OnItemS
         emails = findViewById(R.id.emails);
         addButton = findViewById(R.id.save);
 
+
         mApiService = Injection.getNewInstanceApiService();
+
 
         Spinner spinner = findViewById(R.id.roomList);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.rooms, R.layout.support_simple_spinner_dropdown_item);
@@ -76,16 +80,6 @@ public class NewReunion extends AppCompatActivity implements AdapterView.OnItemS
 
         date_in.setInputType(InputType.TYPE_NULL);
         time_in.setInputType(InputType.TYPE_NULL);
-
-
-        //Going back to the reunion list when back arrow is clicked
-        back_arrow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                NewReunion.this.finish();
-            }
-        });
-
 
         //Opening the date picker on click
         date_in.setOnClickListener(new View.OnClickListener() {
@@ -110,7 +104,6 @@ public class NewReunion extends AppCompatActivity implements AdapterView.OnItemS
          * @return String
          */
 
-
         //Book the reunion when user click on addButton
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -127,6 +120,7 @@ public class NewReunion extends AppCompatActivity implements AdapterView.OnItemS
             }
         });
     }
+
 
     private void validateEmailAdress(TextInputEditText emails) {
         String emailInput = emails.getText().toString();
@@ -181,12 +175,13 @@ public class NewReunion extends AppCompatActivity implements AdapterView.OnItemS
         Toast.makeText(parent.getContext(), text, Toast.LENGTH_LONG).show();
     }
 
+    //If nothing is selected, the reunion cannot be saved
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
     }
 
 
-    // Enable the Create button onluy if all the fields are filled
+    // Enable the Create button only if all the fields are filled
     public void enableCreateButtonIfReady() {
         boolean isReady = (Objects.requireNonNull(room.isSelected()
                 && date_in.getText().length() > 0

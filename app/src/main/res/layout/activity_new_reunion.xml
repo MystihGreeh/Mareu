@@ -9,29 +9,15 @@
     tools:ignore="MissingClass">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+
         tools:ignore="ScrollViewSize">
 
-        <Toolbar
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@color/blue"
-            tools:ignore="MissingConstraints" />
-
-        <!--return button -->
-        <ImageView
-            android:id="@+id/back_arrow"
-            android:layout_width="44dp"
-            android:layout_height="32dp"
-            android:src="@drawable/ic_baseline_white_arrow_back_24"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:layout_editor_absoluteX="-3dp"
-            tools:layout_editor_absoluteY="16dp" />
 
         <!-- reunion details sentence-->
-        <TextView
+        <!--<TextView
             android:id="@+id/booking"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -43,8 +29,8 @@
             app:layout_constraintHorizontal_bias="0.489"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/back_arrow"
-            app:layout_constraintVertical_bias="0.077" />
+            app:layout_constraintTop_toBottomOf=""
+            app:layout_constraintVertical_bias="0.077" />-->
 
 
         <!-- cardview with all the reunion details -->
@@ -52,18 +38,17 @@
             android:id="@+id/details"
             android:layout_width="392dp"
             android:layout_height="500dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="50dp"
             app:cardCornerRadius="15dp"
-            android:layout_marginBottom="80dp"
             android:layout_marginRight="30dp"
             android:layout_marginLeft="30dp"
             android:layout_marginStart="30dp"
             android:layout_marginEnd="30dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/booking"
+            app:layout_constraintBottom_toTopOf="@+id/save"
             app:layout_constraintHorizontal_bias="0.473"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:cardBackgroundColor="@color/white">
 
 
@@ -104,14 +89,12 @@
                 android:layout_marginStart="50dp"
                 android:layout_marginTop="140dp"
                 android:layout_marginEnd="10dp"
-                android:text="@string/date"
+                android:hint="@string/date"
                 />
 
 
 
             <!--Select time-->
-
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -123,7 +106,7 @@
                 android:id="@+id/time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/time"
+                android:hint="@string/time"
                 android:layout_marginTop = "225dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginStart="50dp"/>
@@ -133,7 +116,7 @@
                 android:id="@+id/reunion_object"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/object"
+                android:hint="@string/object"
                 android:layout_marginTop = "310dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginStart="50dp"/>
@@ -143,7 +126,6 @@
             <!--Selecte collegue's e-mail-->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/emailsLyt"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="7dp"
@@ -173,15 +155,14 @@
             android:id="@+id/save"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/ic_baseline_check_circle_24"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/details"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.983"
-            android:background="@drawable/ic_baseline_check_circle_24"
-            />
+            app:layout_constraintVertical_bias="0.237" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>

@@ -2,6 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+
+
     <item
         android:id="@+id/filter_menu"
         android:icon="@drawable/ic_menu"
@@ -12,97 +14,27 @@
                 <item
                     android:id="@+id/menu_filter_by_room"
                     android:title="Filter by room"
+                    android:icon="@drawable/ic_baseline_place_24"
                     app:showAsAction="ifRoom">
-                    <menu>
-                        <item
-                            android:id="@+id/menu_RoomsList"
-                            android:title="select a room"
-                            android:checkable="true"
-                            app:showAsAction="ifRoom"/>
 
-                        <item
-                            android:id="@+id/menu_room_list_back"
-                            android:title="Back"
-                            app:showAsAction="ifRoom"/>    />
-                    </menu>
                 </item>
                 <item
                     android:id="@+id/menu_filter_by_date"
                     android:title="Filter by date"
+                    android:icon="@drawable/ic_baseline_date_range_24"
                     app:showAsAction="ifRoom">
-                    <menu>
-                        <item
-                            android:id="@+id/menu_date_exact"
-                            android:title="Select a date"
-                            app:showAsAction="ifRoom">
-                            <menu>
-                                <item
-                                    android:id="@+id/menu_DateList"
-                                    android:title="Date list"
-                                    android:checkable="true"
-                                    app:showAsAction="ifRoom"/>
-                                <item
-                                    android:id="@+id/menu_date_list_back"
-                                    android:title="Back"
-                                    app:showAsAction="ifRoom"/>
-                            </menu>
-                        </item>
-                        <item
-                            android:id="@+id/menu_date_period"
-                            android:title="Select a period"
-                            app:showAsAction="ifRoom">
-                            <menu>
-                                <item
-                                    android:id="@+id/menu_period_today"
-                                    android:title="Today"
-                                    android:checkable="true"
-                                    app:showAsAction="ifRoom"/>
-                                <item
-                                    android:id="@+id/menu_period_tommorow"
-                                    android:title="Tommorow"
-                                    android:checkable="true"
-                                    app:showAsAction="ifRoom"/>
-                                <item
-                                    android:id="@+id/menu_period_this_week"
-                                    android:title="This week"
-                                    android:checkable="true"
-                                    app:showAsAction="ifRoom"/>
-                                <item
-                                    android:id="@+id/menu_period_next_week"
-                                    android:title="Next week"
-                                    android:checkable="true"
-                                    app:showAsAction="ifRoom"/>
-                                <item
-                                    android:id="@+id/menu_period_this_month"
-                                    android:title="This month"
-                                    android:checkable="true"
-                                    app:showAsAction="ifRoom"/>
-                                <item
-                                    android:id="@+id/menu_period_next_month"
-                                    android:title="Next month"
-                                    android:checkable="true"
-                                    app:showAsAction="ifRoom"/>
-                                <item
-                                    android:id="@+id/menu_date_back"
-                                    android:title="Back"
-                                    app:showAsAction="ifRoom"/>
-                            </menu>
-                        </item>
-                        <item
-                            android:id="@+id/menu_date_exact_back"
-                            android:title="Back"
-                            app:showAsAction="ifRoom"/>
-                    </menu>
 
                 </item>
                 <item
                 android:id="@+id/menu_reset_filters"
                 android:title="Reset filters"
+                    android:icon="@drawable/ic_baseline_autorenew_24"
                 app:showAsAction="ifRoom"/>
 
                 <item
                     android:id="@+id/menu_back"
                     android:title="Back"
+                    android:icon="@drawable/ic_baseline_arrow_back_24"
                     app:showAsAction="ifRoom"/>
             </group>
         </menu>

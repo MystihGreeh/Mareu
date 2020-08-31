@@ -19,4 +19,5 @@ public abstract class DummyReunionGenerator {
     static List<Reunion> generateReunion() {
         return new ArrayList<>(DUMMY_REUNIONS);
     }
+
 }

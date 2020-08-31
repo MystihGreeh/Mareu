@@ -7,35 +7,6 @@
     tools:context=".view.ReunionDetails"
     android:background="@color/white">
 
-    <!--return button -->
-    <ImageView
-        android:id="@+id/back_arrow"
-        android:layout_width="44dp"
-        android:layout_height="32dp"
-        android:src="@drawable/ic_baseline_arrow_back_24"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="-3dp"
-        tools:layout_editor_absoluteY="16dp" />
-
-    <!-- reunion details sentence-->
-    <TextView
-        android:id="@+id/reunion_presentation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/reunionDetail"
-        android:textColor="@color/blue"
-        android:textSize="30sp"
-        android:textStyle="normal"
-        tools:ignore="MissingConstraints"
-        android:layout_marginBottom="620dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.983" />
-
 
     <!-- cardview with all the reunion details -->
     <androidx.cardview.widget.CardView
@@ -46,7 +17,7 @@
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         app:cardCornerRadius="15dp"
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="100dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.473"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -58,13 +29,13 @@
             android:layout_width="362dp"
             android:layout_height="50dp"
             android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
             android:layout_marginTop="20dp"
+            android:layout_marginRight="15dp"
             android:layout_marginBottom="200dp"
             android:background="@color/white"
-            android:text="Réunion B"
-            android:textAlignment="center"
-            android:paddingTop="13dp"/>
+            android:paddingTop="13dp"
+            android:text="Luigi"
+            android:textAlignment="center" />
 
         <TextView
             android:id="@+id/date"
@@ -94,7 +65,7 @@
 
         <TextView
             android:id="@+id/reunion_details"
-            android:text="Peach"
+            android:text="Reunion A"
             android:layout_height="50dp"
             android:layout_width="362dp"
             android:layout_marginLeft="15dp"
@@ -118,10 +89,6 @@
             android:textAlignment="center"
             android:paddingTop="13dp"/>
     </androidx.cardview.widget.CardView>
-
-
-
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
