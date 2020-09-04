@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
 import com.mystihgreeh.mareu.R;
@@ -23,6 +24,7 @@ public class ReunionDetails extends AppCompatActivity {
     TextView mTime;
     TextView mReunionObject;
     TextView mEmails;
+    Toolbar toolbar;
 
     Reunion reunion;
     ReunionApiService mApiService;
@@ -33,6 +35,7 @@ public class ReunionDetails extends AppCompatActivity {
         setContentView(R.layout.activity_reunion_details);
         ActionBar actionBar = getActionBar();
         this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        this.getSupportActionBar().setTitle("Détails de la réunion");
 
         mRoom = findViewById(R.id.room);
         mDate = findViewById(R.id.date);

@@ -29,10 +29,16 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.mystihgreeh.mareu.DI.Injection;
 import com.mystihgreeh.mareu.R;
 import com.mystihgreeh.mareu.model.Reunion;
+import com.mystihgreeh.mareu.model.Room;
+import com.mystihgreeh.mareu.service.DummyReunionGenerator;
+import com.mystihgreeh.mareu.service.DummyRoomGenerator;
 import com.mystihgreeh.mareu.service.ReunionApiService;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Objects;
 
 
@@ -57,7 +63,7 @@ public class NewReunion extends AppCompatActivity implements AdapterView.OnItemS
         setContentView(R.layout.activity_new_reunion);
         ActionBar actionBar = getActionBar();
         this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
+        this.getSupportActionBar().setTitle("Nouvelle réunion");
 
 
 
@@ -72,8 +78,9 @@ public class NewReunion extends AppCompatActivity implements AdapterView.OnItemS
         mApiService = Injection.getNewInstanceApiService();
 
 
-        Spinner spinner = findViewById(R.id.roomList);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.rooms, R.layout.support_simple_spinner_dropdown_item);
+        @SuppressLint("CutPasteId") Spinner spinner = findViewById(R.id.roomList);
+        List<Room> roomList = Arrays.asList(DummyRoomGenerator.getListRooms());
+        ArrayAdapter adapter = new ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, roomList);
         adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(this);
@@ -192,6 +199,7 @@ public class NewReunion extends AppCompatActivity implements AdapterView.OnItemS
         if (isReady) {
             addButton.setEnabled(true);
         }
+        else addButton.setEnabled(false);
     }
 
     /**

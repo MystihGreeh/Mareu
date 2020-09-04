@@ -12,39 +12,31 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mystihgreeh.mareu.R;
 import com.mystihgreeh.mareu.events.DeleteReunionEvent;
 import com.mystihgreeh.mareu.model.Reunion;
+import com.mystihgreeh.mareu.model.Room;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 import java.util.Random;
 
+import static android.media.CamcorderProfile.get;
+
 
 public class MyReunionListRecyclerViewAdapter extends RecyclerView.Adapter<MyReunionListRecyclerViewAdapter.ViewHolder> {
 
     private final List<Reunion> mReunion;
-    Random random = new Random();
-
-    Integer[] colors = {
-            R.drawable.metting_room_one,
-            R.drawable.meeting_room_two,
-            R.drawable.meeting_room_three,
-            R.drawable.meeting_room_four,
-            R.drawable.meeting_room_five,
-            R.drawable.meeting_room_six,
-            R.drawable.meeting_room_seven,
-            R.drawable.meeting_room_eight,
-            R.drawable.meeting_room_nine,
-            R.drawable.meeting_room_ten,
-    };
+    private final List<Room> mRooms;
 
 
-    public MyReunionListRecyclerViewAdapter(List<Reunion> items) {
+    public MyReunionListRecyclerViewAdapter(List<Reunion> items, List<Room> rooms) {
         mReunion = items;
+        mRooms = rooms;
     }
 
     @NonNull
@@ -60,10 +52,10 @@ public class MyReunionListRecyclerViewAdapter extends RecyclerView.Adapter<MyReu
     @Override
     public void onBindViewHolder(@NonNull MyReunionListRecyclerViewAdapter.ViewHolder holder, int position) {
         final Reunion reunion = mReunion.get(position);
+        //final Room rooms = mRooms.get(position) ;
         holder.mRoom.setText(reunion.getObject()+" - "+reunion.getTime()+ " - "+reunion.getRoom());
         holder.mEmails.setText(reunion.getEmails());
-        holder.mCcolor.setImageResource(colors[position % colors.length]);
-
+        //holder.mCcolor.setColorFilter(rooms.getmColor());
 
         //User click on the delete button to delete the reunion
         holder.mDeleteButton.setOnClickListener(new View.OnClickListener() {
@@ -98,8 +90,8 @@ public class MyReunionListRecyclerViewAdapter extends RecyclerView.Adapter<MyReu
         public TextView mTime;
         public TextView mReunionObject;
         public TextView mEmails;
-        public ImageButton mDeleteButton;
-        public FrameLayout mConstraintLayout;
+        public ImageView mDeleteButton;
+        public ConstraintLayout mConstraintLayout;
         public ImageView mCcolor;
 
 

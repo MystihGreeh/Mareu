@@ -1,6 +1,5 @@
 package com.mystihgreeh.mareu.model;
 
-import android.graphics.Color;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -27,10 +26,10 @@ public class Reunion implements Parcelable {
 
     /**
      * Constructor
-     * @param room
+     * @param object
      * @param date
      * @param time
-     * @param object
+     * @param room
      * @param emails
      */
     public Reunion(String object, String date, String time, String room, String emails){
@@ -61,13 +60,13 @@ public class Reunion implements Parcelable {
         }
     };
 
+
     public String getObject() {
         return object;
     }
     public void setObject(String object) {
         this.object = object;
     }
-
 
     public String getDate() { return date;}
     public void setDate(String date) {this.date = date;}
@@ -122,7 +121,18 @@ public class Reunion implements Parcelable {
             dest.writeString(time);
             dest.writeString(room);
             dest.writeString(emails);
+    }
 
+    public boolean completeReunion()
+    {
+        if (object != null && date != null && time !=null && room!= null && emails!= null)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
 }

@@ -7,13 +7,6 @@
     <string name="reunionDetail">Détails de la réunion</string>
     <string name="save">Créer</string>
     <string name="cancel">Annuler la réunion</string>
-    <string-array name="rooms">
-        <item>Luigi</item>
-        <item>Peach</item>
-        <item>Mario</item>
-        <item>Bowser</item>
-        <item>Toad</item>
-    </string-array>
     <string name="date">Sélectionnez une date</string>
     <string name="time">Sélectionnez un horaire</string>
     <string name="object">Entrez un objet</string>

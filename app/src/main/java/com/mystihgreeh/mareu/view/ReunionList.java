@@ -27,6 +27,7 @@ import com.mystihgreeh.mareu.R;
 import com.mystihgreeh.mareu.DI.Injection;
 import com.mystihgreeh.mareu.events.DeleteReunionEvent;
 import com.mystihgreeh.mareu.model.Reunion;
+import com.mystihgreeh.mareu.model.Room;
 import com.mystihgreeh.mareu.service.DummyReunionGenerator;
 import com.mystihgreeh.mareu.service.ReunionApiService;
 
@@ -42,6 +43,7 @@ public class ReunionList extends AppCompatActivity {
     RecyclerView mRecyclerView;
     private ReunionApiService mApiService;
     private List<Reunion> mReunion;
+    private List<Room> mRoom;
     private FloatingActionButton mButton;
 
     Boolean isDateFiltered = false;
@@ -91,22 +93,8 @@ public class ReunionList extends AppCompatActivity {
      * Init the List of reunion
      */
     private void initList(int type) {
-
-        switch (type){
-            case DEFAULT  :
-                mReunion = mApiService.getReunions();
-                break;
-            case BY_ROOM :
-                mReunion = mApiService.filteredByRoom();
-                break;
-            case BY_DATE :
-                mReunion = mApiService.filteredByDate();
-        }
-        // Filter the list if one is selected
-        mReunion = mApiService.reunionListFilter(isDateFiltered, isLocationFiltered, roomFilterSelected, dateFilterSelected);
-        Log.i("debug", "initList appelé");
-
-        mRecyclerView.setAdapter(new MyReunionListRecyclerViewAdapter(mReunion));
+        mReunion = mApiService.getReunions();
+        mRecyclerView.setAdapter(new MyReunionListRecyclerViewAdapter(mReunion, mRoom));
     }
 
     @Override
@@ -167,7 +155,7 @@ public class ReunionList extends AppCompatActivity {
         return true;
     }
 
-    @Override
+    /*@Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
         if (item.getItemId() == R.id.menu_filter_by_date) {
@@ -177,6 +165,8 @@ public class ReunionList extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    @Subscribe
 
 
     //Filter by date
@@ -204,15 +194,18 @@ public class ReunionList extends AppCompatActivity {
     }
     public void initListByDate (Calendar calendar) {
         mApiService.filteredByDate();
-        initList(BY_DATE);
+        initList(BY_DATE);}*/
 
 
-    }
+
 
     //Filter by room
+
 
 
     // Clear filter
 
 
 }
+
+
