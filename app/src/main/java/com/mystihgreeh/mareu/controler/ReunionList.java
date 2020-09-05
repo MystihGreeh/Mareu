@@ -1,8 +1,7 @@
-package com.mystihgreeh.mareu.view;
+package com.mystihgreeh.mareu.controler;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,10 +11,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -28,8 +24,8 @@ import com.mystihgreeh.mareu.DI.Injection;
 import com.mystihgreeh.mareu.events.DeleteReunionEvent;
 import com.mystihgreeh.mareu.model.Reunion;
 import com.mystihgreeh.mareu.model.Room;
-import com.mystihgreeh.mareu.service.DummyReunionGenerator;
 import com.mystihgreeh.mareu.service.ReunionApiService;
+import com.mystihgreeh.mareu.service.RoomApiService;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -42,6 +38,7 @@ public class ReunionList extends AppCompatActivity {
 
     RecyclerView mRecyclerView;
     private ReunionApiService mApiService;
+    private RoomApiService mRoomService;
     private List<Reunion> mReunion;
     private List<Room> mRoom;
     private FloatingActionButton mButton;
@@ -50,7 +47,6 @@ public class ReunionList extends AppCompatActivity {
     Boolean isLocationFiltered = false;
     Date dateFilterSelected;
     String roomFilterSelected = "";
-    public final int DEFAULT = 0, BY_ROOM = 1, BY_DATE = 2;
 
 
 
@@ -71,10 +67,11 @@ public class ReunionList extends AppCompatActivity {
         super.onCreate( savedInstanceState );
         setContentView(R.layout.activity_reunion_list);
         mApiService = Injection.getReunionApiService();
+        mRoomService = Injection.getRoomApiService();
         mRecyclerView = findViewById(R.id.recyclerView);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
-        initList(DEFAULT);
+        initList();
 
         mButton = findViewById(R.id.addButton);
 
@@ -92,8 +89,9 @@ public class ReunionList extends AppCompatActivity {
     /**
      * Init the List of reunion
      */
-    private void initList(int type) {
+    private void initList() {
         mReunion = mApiService.getReunions();
+        mRoom = mRoomService.getRooms();
         mRecyclerView.setAdapter(new MyReunionListRecyclerViewAdapter(mReunion, mRoom));
     }
 
@@ -101,7 +99,7 @@ public class ReunionList extends AppCompatActivity {
     public void onResume() {
         Log.i("debug", "onResume appelé");
         super.onResume();
-        initList(DEFAULT);
+        initList();
     }
 
     @Override
@@ -125,7 +123,7 @@ public class ReunionList extends AppCompatActivity {
     @Subscribe
     public void onDeleteReunion(DeleteReunionEvent event) {
         mApiService.deleteReunion(event.reunion);
-        initList(DEFAULT);
+        initList();
     }
 
     /**
@@ -143,7 +141,7 @@ public class ReunionList extends AppCompatActivity {
         if (requestCode == 1 && data != null){
             Reunion reunion = new Reunion(data.getStringExtra("object"), data.getStringExtra("date"), data.getStringExtra("time"), data.getStringExtra("room"), data.getStringExtra("emails"));
             mApiService.createReunion(reunion);
-            initList(DEFAULT);
+            initList();
         }
     }
 
@@ -155,53 +153,9 @@ public class ReunionList extends AppCompatActivity {
         return true;
     }
 
-    /*@Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    // Filter by room
 
-        if (item.getItemId() == R.id.menu_filter_by_date) {
-            filterByDate();
-        } else {
-            //filterByRoom();
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Subscribe
-
-
-    //Filter by date
-    public void filterByDate() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        final DatePicker filterDatePicker = new DatePicker(this);
-        builder.setView(filterDatePicker);
-        builder.setNegativeButton("clear", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                initList(DEFAULT);
-            }
-        });
-        builder.setPositiveButton("filter", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Calendar calendar = Calendar.getInstance();
-                calendar.set(Calendar.DAY_OF_MONTH, filterDatePicker.getDayOfMonth());
-                calendar.set(Calendar.MONTH, filterDatePicker.getMonth());
-                calendar.set(Calendar.YEAR, filterDatePicker.getYear());
-                initListByDate(calendar);
-            }
-        });
-        builder.show();
-    }
-    public void initListByDate (Calendar calendar) {
-        mApiService.filteredByDate();
-        initList(BY_DATE);}*/
-
-
-
-
-    //Filter by room
-
-
+    // Filter by date
 
     // Clear filter
 

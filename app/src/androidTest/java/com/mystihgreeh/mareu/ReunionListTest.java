@@ -1,24 +1,14 @@
 package com.mystihgreeh.mareu;
 
-import android.app.Activity;
-
 import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.rule.ActivityTestRule;
-import androidx.test.runner.*;
-import androidx.test.espresso.matcher.ViewMatchers;
-import androidx.test.espresso.Espresso;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 
-import com.mystihgreeh.mareu.DI.Injection;
-import com.mystihgreeh.mareu.events.DeleteReunionEvent;
-import com.mystihgreeh.mareu.model.Reunion;
-import com.mystihgreeh.mareu.service.ReunionApiService;
-import com.mystihgreeh.mareu.view.ReunionList;
+import com.mystihgreeh.mareu.controler.ReunionList;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
-import static androidx.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static com.mystihgreeh.mareu.RecyclerViewItemCountAssertion.withItemCount;
 
@@ -29,8 +19,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-
-import java.security.AllPermission;
 
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.assertThat;

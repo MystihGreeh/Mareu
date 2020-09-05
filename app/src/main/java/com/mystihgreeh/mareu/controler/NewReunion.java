@@ -1,4 +1,4 @@
-package com.mystihgreeh.mareu.view;
+package com.mystihgreeh.mareu.controler;
 
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
@@ -30,12 +30,10 @@ import com.mystihgreeh.mareu.DI.Injection;
 import com.mystihgreeh.mareu.R;
 import com.mystihgreeh.mareu.model.Reunion;
 import com.mystihgreeh.mareu.model.Room;
-import com.mystihgreeh.mareu.service.DummyReunionGenerator;
 import com.mystihgreeh.mareu.service.DummyRoomGenerator;
 import com.mystihgreeh.mareu.service.ReunionApiService;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
@@ -52,8 +50,6 @@ public class NewReunion extends AppCompatActivity implements AdapterView.OnItemS
     EditText object;
     TextInputEditText emails;
     Button addButton;
-    Toolbar toolbar;
-    Reunion reunion;
     ReunionApiService mApiService;
 
 

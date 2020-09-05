@@ -1,17 +1,13 @@
-package com.mystihgreeh.mareu.view;
+package com.mystihgreeh.mareu.controler;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 
 import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toolbar;
 
-import com.bumptech.glide.Glide;
 import com.mystihgreeh.mareu.R;
 import com.mystihgreeh.mareu.DI.Injection;
 import com.mystihgreeh.mareu.model.Reunion;

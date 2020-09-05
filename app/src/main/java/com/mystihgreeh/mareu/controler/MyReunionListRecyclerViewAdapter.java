@@ -1,4 +1,4 @@
-package com.mystihgreeh.mareu.view;
+package com.mystihgreeh.mareu.controler;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -6,8 +6,6 @@ import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -23,7 +21,6 @@ import com.mystihgreeh.mareu.model.Room;
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
-import java.util.Random;
 
 import static android.media.CamcorderProfile.get;
 
@@ -52,10 +49,19 @@ public class MyReunionListRecyclerViewAdapter extends RecyclerView.Adapter<MyReu
     @Override
     public void onBindViewHolder(@NonNull MyReunionListRecyclerViewAdapter.ViewHolder holder, int position) {
         final Reunion reunion = mReunion.get(position);
-        //final Room rooms = mRooms.get(position) ;
+
         holder.mRoom.setText(reunion.getObject()+" - "+reunion.getTime()+ " - "+reunion.getRoom());
         holder.mEmails.setText(reunion.getEmails());
-        //holder.mCcolor.setColorFilter(rooms.getmColor());
+        for(int i=0; i< mRooms.size(); i++) {
+            Room room = mRooms.get(i);
+            if(mRooms.get(i).getmName().equals(reunion.getRoom()))
+            {
+                holder.mCcolor.setImageResource(room.getmColor());
+                break;
+            }
+        } ;
+
+
 
         //User click on the delete button to delete the reunion
         holder.mDeleteButton.setOnClickListener(new View.OnClickListener() {
