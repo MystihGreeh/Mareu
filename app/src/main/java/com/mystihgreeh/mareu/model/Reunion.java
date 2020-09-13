@@ -3,6 +3,7 @@ package com.mystihgreeh.mareu.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.Date;
 import java.util.Objects;
 
 public class Reunion implements Parcelable {

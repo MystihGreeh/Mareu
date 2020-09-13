@@ -26,6 +26,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.mystihgreeh.mareu.DI.Injection;
 import com.mystihgreeh.mareu.R;
 import com.mystihgreeh.mareu.model.Reunion;
@@ -38,17 +39,17 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
+import java.util.regex.Pattern;
 
 
 public class NewReunion extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
-
 
 
     Spinner room;
     EditText date_in;
     EditText time_in;
     EditText object;
-    TextInputEditText emails;
+    TextInputLayout emails;
     Button addButton;
     ReunionApiService mApiService;
 
@@ -62,19 +63,18 @@ public class NewReunion extends AppCompatActivity implements AdapterView.OnItemS
         this.getSupportActionBar().setTitle("Nouvelle réunion");
 
 
-
         room = findViewById(R.id.roomList);
         date_in = findViewById(R.id.date);
         time_in = findViewById(R.id.time);
         object = findViewById(R.id.reunion_object);
-        emails = findViewById(R.id.emails);
+        emails = findViewById(R.id.emailsLyt);
         addButton = findViewById(R.id.save);
 
 
         mApiService = Injection.getNewInstanceApiService();
 
 
-        @SuppressLint("CutPasteId") Spinner spinner = findViewById(R.id.roomList);
+        Spinner spinner = findViewById(R.id.roomList);
         List<Room> roomList = Arrays.asList(DummyRoomGenerator.getListRooms());
         ArrayAdapter adapter = new ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, roomList);
         adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
@@ -101,39 +101,64 @@ public class NewReunion extends AppCompatActivity implements AdapterView.OnItemS
             }
         });
 
-        /**
-         * Generate a random image. Useful to mock image picker
-         *
-         * @return String
-         */
+
 
         //Book the reunion when user click on addButton
         addButton.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
-                Log.i("debugDate", "date : "+date_in.getText().toString()+" / time : "+time_in.getText().toString());
+                Log.i("debugDate", "date : " + date_in.getText().toString() + " / time : " + time_in.getText().toString());
+                if (!validateEmailAddress()) return;
+                //if (enableCreateButtonIfReady()) return;
                 Intent intent = new Intent();
                 intent.putExtra("room", room.getSelectedItem().toString());
                 intent.putExtra("date", date_in.getText().toString());
                 intent.putExtra("time", time_in.getText().toString());
                 intent.putExtra("object", object.getText().toString());
-                intent.putExtra("emails", emails.getText().toString());
+                intent.putExtra("emails", emails.getEditText().getText().toString());
                 setResult(1, intent);
                 finish();
             }
         });
     }
 
+    private boolean validateEmailAddress() {
+        String emailInput = emails.getEditText().getText().toString().trim();
 
-    private void validateEmailAdress(TextInputEditText emails) {
-        String emailInput = emails.getText().toString();
+        if (Patterns.EMAIL_ADDRESS.matcher(emailInput).matches()){
+            emails.setError(null);
+        return true;}
 
-        if (!emailInput.isEmpty() && Patterns.EMAIL_ADDRESS.matcher(emailInput).matches()) {
-            Toast.makeText(this, "Email valide", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(this, "Email invalide", Toast.LENGTH_SHORT).show();
+        if (emailInput.isEmpty()) {
+            emails.setError("Field can't be empty");
+            enableCreateButtonIfReady();
+            return false;
+
+        } else if (!Patterns.EMAIL_ADDRESS.matcher(emailInput).matches()) {
+            emails.setError("Please enter a valid email address");
+            enableCreateButtonIfReady();
+            return false;
         }
+        return false;
     }
+
+        // Enable the Create button only if all the fields are filled
+        public boolean enableCreateButtonIfReady() {
+            boolean isReady = (Objects.requireNonNull(room.isSelected()
+                    && date_in.isSelected()
+                    && time_in.isSelected()
+                    && object.getText().toString().length() > 0
+                    && emails.getEditText().getText().toString().length() > 0));
+            if (!isReady) {
+                   addButton.setEnabled(true);
+               return true;}
+
+            else {addButton.setEnabled(false);
+            return false;}
+        }
+
+
 
     //Setting time picker
     private void showTimeDialog(final EditText time_in) {
@@ -183,20 +208,6 @@ public class NewReunion extends AppCompatActivity implements AdapterView.OnItemS
     public void onNothingSelected(AdapterView<?> parent) {
     }
 
-
-    // Enable the Create button only if all the fields are filled
-    public void enableCreateButtonIfReady() {
-        boolean isReady = (Objects.requireNonNull(room.isSelected()
-                && date_in.getText().length() > 0
-                && time_in.getText().length() > 0
-                && object.getText().length() > 0
-                && emails.getText().length() > 0));
-
-        if (isReady) {
-            addButton.setEnabled(true);
-        }
-        else addButton.setEnabled(false);
-    }
 
     /**
      * Used to navigate to this activity

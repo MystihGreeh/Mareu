@@ -11,9 +11,13 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
+import android.widget.Spinner;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,30 +28,25 @@ import com.mystihgreeh.mareu.DI.Injection;
 import com.mystihgreeh.mareu.events.DeleteReunionEvent;
 import com.mystihgreeh.mareu.model.Reunion;
 import com.mystihgreeh.mareu.model.Room;
+import com.mystihgreeh.mareu.service.DummyRoomGenerator;
 import com.mystihgreeh.mareu.service.ReunionApiService;
-import com.mystihgreeh.mareu.service.RoomApiService;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 public class ReunionList extends AppCompatActivity {
 
     RecyclerView mRecyclerView;
     private ReunionApiService mApiService;
-    private RoomApiService mRoomService;
+
     private List<Reunion> mReunion;
     private List<Room> mRoom;
     private FloatingActionButton mButton;
 
-    Boolean isDateFiltered = false;
-    Boolean isLocationFiltered = false;
-    Date dateFilterSelected;
-    String roomFilterSelected = "";
-
+    Spinner roomSpinner;
 
 
     /**
@@ -64,25 +63,26 @@ public class ReunionList extends AppCompatActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate( savedInstanceState );
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reunion_list);
         mApiService = Injection.getReunionApiService();
-        mRoomService = Injection.getRoomApiService();
         mRecyclerView = findViewById(R.id.recyclerView);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         initList();
 
         mButton = findViewById(R.id.addButton);
+        roomSpinner = findViewById(R.id.menu_filter_by_room);
 
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), NewReunion.class);
-                Activity activity = (Activity)v.getContext();
+                Activity activity = (Activity) v.getContext();
                 activity.startActivityForResult(intent, 1);
             }
         });
+
 
     }
 
@@ -91,7 +91,7 @@ public class ReunionList extends AppCompatActivity {
      */
     private void initList() {
         mReunion = mApiService.getReunions();
-        mRoom = mRoomService.getRooms();
+        mRoom = mApiService.getRooms();
         mRecyclerView.setAdapter(new MyReunionListRecyclerViewAdapter(mReunion, mRoom));
     }
 
@@ -130,7 +130,7 @@ public class ReunionList extends AppCompatActivity {
      * Delete reunions when screen rotates
      */
     @Override
-    public void onDestroy(){
+    public void onDestroy() {
         Injection.getNewInstanceApiService();
         super.onDestroy();
     }
@@ -138,7 +138,7 @@ public class ReunionList extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1 && data != null){
+        if (requestCode == 1 && data != null) {
             Reunion reunion = new Reunion(data.getStringExtra("object"), data.getStringExtra("date"), data.getStringExtra("time"), data.getStringExtra("room"), data.getStringExtra("emails"));
             mApiService.createReunion(reunion);
             initList();
@@ -153,13 +153,28 @@ public class ReunionList extends AppCompatActivity {
         return true;
     }
 
-    // Filter by room
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        return super.onOptionsItemSelected(item);
+    }
+
 
     // Filter by date
 
-    // Clear filter
+
+
+    // Filter by room
+
+
+
+    // Reset filters
+
 
 
 }
+
+
+
 
 

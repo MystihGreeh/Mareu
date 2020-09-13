@@ -8,7 +8,7 @@ import java.util.List;
 
 public abstract class DummyRoomGenerator {
 
-    private static Room[] ROOM_LIST = {
+    public static Room[] ROOM_LIST = {
 
             new Room("Luigi", R.drawable.metting_room_one),
             new Room("Mario", R.drawable.meeting_room_two),

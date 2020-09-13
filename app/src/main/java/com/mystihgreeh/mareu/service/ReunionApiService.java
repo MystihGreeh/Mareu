@@ -18,6 +18,9 @@ public interface ReunionApiService {
      * @return {@link List}
      */
     List<Reunion> getReunions();
+    List<Room> getRooms();
+
+
 
 
     /**
@@ -32,5 +35,6 @@ public interface ReunionApiService {
      * @param reunion
      */
     void createReunion(Reunion reunion);
+
 
 }

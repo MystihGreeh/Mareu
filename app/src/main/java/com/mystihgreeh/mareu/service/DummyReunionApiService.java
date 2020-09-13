@@ -14,11 +14,10 @@ import java.util.List;
  * Dummy mock for the Api
  */
 
-public class DummyReunionApiService implements ReunionApiService{
+public class DummyReunionApiService implements ReunionApiService {
 
     private List<Reunion> reunions = DummyReunionGenerator.generateReunion();
     private List<Room> rooms = DummyRoomGenerator.generateRoom();
-
 
 
     /**
@@ -46,6 +45,14 @@ public class DummyReunionApiService implements ReunionApiService{
     @Override
     public void createReunion(Reunion reunion) {
         reunions.add(reunion);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<Room> getRooms() {
+        return rooms;
     }
 
 }
