@@ -2,6 +2,7 @@ package com.mystihgreeh.mareu.controler;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,14 +11,10 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.DatePicker;
 import android.widget.Spinner;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -28,14 +25,15 @@ import com.mystihgreeh.mareu.DI.Injection;
 import com.mystihgreeh.mareu.events.DeleteReunionEvent;
 import com.mystihgreeh.mareu.model.Reunion;
 import com.mystihgreeh.mareu.model.Room;
-import com.mystihgreeh.mareu.service.DummyRoomGenerator;
 import com.mystihgreeh.mareu.service.ReunionApiService;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 public class ReunionList extends AppCompatActivity {
 
@@ -47,9 +45,15 @@ public class ReunionList extends AppCompatActivity {
     private FloatingActionButton mButton;
 
     Spinner roomSpinner;
+    Boolean isDateFiltered = false;
+    Boolean isLocationFiltered = false;
+    Date dateFilterSelected;
+    String roomFilterSelected = "";
+    String [] listOfReunionRooms;
 
 
     /**
+     *
      * Create and return a new instance
      *
      * @return @{@link ReunionList}
@@ -145,6 +149,10 @@ public class ReunionList extends AppCompatActivity {
         }
     }
 
+
+    ///////////////////FILTERS//////////////////////
+
+
     //setting the filters menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -154,23 +162,68 @@ public class ReunionList extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+    public boolean onOptionsItemSelected( MenuItem item) {
 
+
+        // Filter by room
+        if (item.getItemId() == R.id.menu_filter_by_room) {
+            AlertDialog.Builder mBuilder = new AlertDialog.Builder(ReunionList.this);
+            mBuilder.setTitle(R.string.reunion_room_filter);
+            mBuilder.setSingleChoiceItems(listOfReunionRooms, -1, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    System.out.println(which);
+                    roomFilterSelected = listOfReunionRooms[which];
+                    ReunionList.this.initList();
+                }
+            });
+            mBuilder.setPositiveButton(R.string.ok, null);
+            mBuilder.setNeutralButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    isLocationFiltered = false;
+                    ReunionList.this.initList();
+                }
+            });
+            AlertDialog mDialog = mBuilder.create();
+            mDialog.show();
+            isLocationFiltered = true;
+            return true;
+        }
+
+
+        // Filter by date
+        if (item.getItemId() == R.id.menu_filter_by_date){
+        final Calendar cldr = Calendar.getInstance();
+        int year = cldr.get(Calendar.YEAR);
+        int month = cldr.get(Calendar.MONTH);
+        int day = cldr.get(Calendar.DAY_OF_MONTH);
+
+        DatePickerDialog dialog = new DatePickerDialog(ReunionList.this,
+                android.R.style.Theme_Holo_Light_Dialog_MinWidth,
+                (view, year1, month1, dayOfMonth) -> {
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.set(Calendar.YEAR, year1);
+                    calendar.set(Calendar.MONTH, month1);
+                    calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                    dateFilterSelected = calendar.getTime();
+                    initList();
+
+                }, year, month, day);
+        Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawableResource(android.R.color.transparent);
+        dialog.show();
+        isDateFiltered = true;
+        return true;}
+
+        // Reset filter
+        if (item.getItemId() == R.id.menu_reset_filters){
+        isDateFiltered = false;
+        isLocationFiltered = false;
+        initList();
+        return true;
+    }
         return super.onOptionsItemSelected(item);
     }
-
-
-    // Filter by date
-
-
-
-    // Filter by room
-
-
-
-    // Reset filters
-
-
 
 }
 

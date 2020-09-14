@@ -36,5 +36,7 @@ public interface ReunionApiService {
      */
     void createReunion(Reunion reunion);
 
+    List<Reunion> reunionListFilter (boolean isDateFiltered, boolean isLocationFiltered, String roomFilterSelected, Date dateFilterSelected);
+
 
 }

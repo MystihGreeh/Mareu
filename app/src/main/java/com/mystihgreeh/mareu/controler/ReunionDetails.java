@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.widget.TextView;
 import android.widget.Toolbar;
 
@@ -45,13 +46,10 @@ public class ReunionDetails extends AppCompatActivity {
         mApiService = Injection.getReunionApiService();
         Intent intent = getIntent();
         reunion = intent.getParcelableExtra("reunion");
-        /*Glide.with(this)
-                .load(reunion.getColor())
-                .into(color);*/
         assert reunion != null;
         mRoom.setText(reunion.getRoom());
-        mDate.setText(reunion.getDate());
         mTime.setText(reunion.getTime());
+        mDate.setText(DateFormat.format("dd/MM/yyyy", reunion.getDate()));
         mReunionObject.setText(reunion.getObject());
         mEmails.setText(reunion.getEmails());
 

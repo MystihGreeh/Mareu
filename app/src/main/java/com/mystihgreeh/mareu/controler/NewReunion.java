@@ -108,15 +108,14 @@ public class NewReunion extends AppCompatActivity implements AdapterView.OnItemS
 
             @Override
             public void onClick(View v) {
-                Log.i("debugDate", "date : " + date_in.getText().toString() + " / time : " + time_in.getText().toString());
                 if (!validateEmailAddress()) return;
-                //if (enableCreateButtonIfReady()) return;
+                if (!enableCreateButtonIfReady()) return;
                 Intent intent = new Intent();
                 intent.putExtra("room", room.getSelectedItem().toString());
                 intent.putExtra("date", date_in.getText().toString());
                 intent.putExtra("time", time_in.getText().toString());
                 intent.putExtra("object", object.getText().toString());
-                intent.putExtra("emails", emails.getEditText().getText().toString());
+                intent.putExtra("emails", Objects.requireNonNull(emails.getEditText()).getText().toString());
                 setResult(1, intent);
                 finish();
             }
@@ -218,7 +217,6 @@ public class NewReunion extends AppCompatActivity implements AdapterView.OnItemS
         Intent intent = new Intent(activity, NewReunion.class);
         ActivityCompat.startActivity(activity, intent, null);
     }
-
 
 }
 
