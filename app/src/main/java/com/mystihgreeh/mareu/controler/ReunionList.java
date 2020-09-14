@@ -25,14 +25,19 @@ import com.mystihgreeh.mareu.DI.Injection;
 import com.mystihgreeh.mareu.events.DeleteReunionEvent;
 import com.mystihgreeh.mareu.model.Reunion;
 import com.mystihgreeh.mareu.model.Room;
+import com.mystihgreeh.mareu.service.DummyRoomGenerator;
 import com.mystihgreeh.mareu.service.ReunionApiService;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 public class ReunionList extends AppCompatActivity {
@@ -49,7 +54,17 @@ public class ReunionList extends AppCompatActivity {
     Boolean isLocationFiltered = false;
     Date dateFilterSelected;
     String roomFilterSelected = "";
-    String [] listOfReunionRooms;
+    public static String[] ROOM_LIST = {
+
+            new String("Luigi"),
+            new String("Mario"),
+            new String("Peach"),
+            new String("Bowser"),
+            new String("Toad"),
+
+    };;
+    private Room room;
+
 
 
     /**
@@ -89,6 +104,9 @@ public class ReunionList extends AppCompatActivity {
 
 
     }
+
+
+                      ///////////////// LIST ////////////////////////
 
     /**
      * Init the List of reunion
@@ -139,18 +157,20 @@ public class ReunionList extends AppCompatActivity {
         super.onDestroy();
     }
 
-    @Override
+    /*@Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
         if (requestCode == 1 && data != null) {
             Reunion reunion = new Reunion(data.getStringExtra("object"), data.getStringExtra("date"), data.getStringExtra("time"), data.getStringExtra("room"), data.getStringExtra("emails"));
             mApiService.createReunion(reunion);
             initList();
         }
-    }
+    }*/
 
 
-    ///////////////////FILTERS//////////////////////
+
+                         ///////////////////FILTERS//////////////////////
 
 
     //setting the filters menu
@@ -169,20 +189,26 @@ public class ReunionList extends AppCompatActivity {
         if (item.getItemId() == R.id.menu_filter_by_room) {
             AlertDialog.Builder mBuilder = new AlertDialog.Builder(ReunionList.this);
             mBuilder.setTitle(R.string.reunion_room_filter);
-            mBuilder.setSingleChoiceItems(listOfReunionRooms, -1, new DialogInterface.OnClickListener() {
+            mBuilder.setSingleChoiceItems(ROOM_LIST, -1, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     System.out.println(which);
-                    roomFilterSelected = listOfReunionRooms[which];
-                    ReunionList.this.initList();
+                    roomFilterSelected = ROOM_LIST[which];
+                    initList();
                 }
             });
-            mBuilder.setPositiveButton(R.string.ok, null);
+            mBuilder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                        isLocationFiltered = true;
+                        initList();
+                    }
+            });
             mBuilder.setNeutralButton(R.string.cancel, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     isLocationFiltered = false;
-                    ReunionList.this.initList();
+                    initList();
                 }
             });
             AlertDialog mDialog = mBuilder.create();

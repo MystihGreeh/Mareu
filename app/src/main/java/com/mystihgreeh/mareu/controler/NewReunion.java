@@ -73,14 +73,6 @@ public class NewReunion extends AppCompatActivity implements AdapterView.OnItemS
 
         mApiService = Injection.getNewInstanceApiService();
 
-
-        Spinner spinner = findViewById(R.id.roomList);
-        List<Room> roomList = Arrays.asList(DummyRoomGenerator.getListRooms());
-        ArrayAdapter adapter = new ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, roomList);
-        adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(this);
-
         date_in.setInputType(InputType.TYPE_NULL);
         time_in.setInputType(InputType.TYPE_NULL);
 
@@ -91,6 +83,13 @@ public class NewReunion extends AppCompatActivity implements AdapterView.OnItemS
                 showDateDialog(date_in);
             }
         });
+
+        @SuppressLint("CutPasteId") Spinner spinner = findViewById(R.id.roomList);
+        List<Room> roomList = Arrays.asList(DummyRoomGenerator.getListRooms());
+        ArrayAdapter adapter = new ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, roomList);
+        adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(this);
 
 
         //Opening the time picker on click
@@ -109,7 +108,6 @@ public class NewReunion extends AppCompatActivity implements AdapterView.OnItemS
             @Override
             public void onClick(View v) {
                 if (!validateEmailAddress()) return;
-                if (!enableCreateButtonIfReady()) return;
                 Intent intent = new Intent();
                 intent.putExtra("room", room.getSelectedItem().toString());
                 intent.putExtra("date", date_in.getText().toString());
@@ -121,7 +119,7 @@ public class NewReunion extends AppCompatActivity implements AdapterView.OnItemS
             }
         });
     }
-
+    // Emails must be valid email address
     private boolean validateEmailAddress() {
         String emailInput = emails.getEditText().getText().toString().trim();
 
@@ -131,32 +129,19 @@ public class NewReunion extends AppCompatActivity implements AdapterView.OnItemS
 
         if (emailInput.isEmpty()) {
             emails.setError("Field can't be empty");
-            enableCreateButtonIfReady();
             return false;
 
         } else if (!Patterns.EMAIL_ADDRESS.matcher(emailInput).matches()) {
             emails.setError("Please enter a valid email address");
-            enableCreateButtonIfReady();
             return false;
         }
         return false;
     }
 
-        // Enable the Create button only if all the fields are filled
-        public boolean enableCreateButtonIfReady() {
-            boolean isReady = (Objects.requireNonNull(room.isSelected()
-                    && date_in.isSelected()
-                    && time_in.isSelected()
-                    && object.getText().toString().length() > 0
-                    && emails.getEditText().getText().toString().length() > 0));
-            if (!isReady) {
-                   addButton.setEnabled(true);
-               return true;}
 
-            else {addButton.setEnabled(false);
-            return false;}
-        }
 
+
+                //////////////// DATE AND TIME PICKER ////////////////////
 
 
     //Setting time picker

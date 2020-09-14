@@ -48,8 +48,9 @@ public class ReunionDetails extends AppCompatActivity {
         reunion = intent.getParcelableExtra("reunion");
         assert reunion != null;
         mRoom.setText(reunion.getRoom());
+        mTime.setText(reunion.getDate());
         mTime.setText(reunion.getTime());
-        mDate.setText(DateFormat.format("dd/MM/yyyy", reunion.getDate()));
+        //mDate.setText(DateFormat.format("dd/MM/yyyy", reunion.getDate()));
         mReunionObject.setText(reunion.getObject());
         mEmails.setText(reunion.getEmails());
 
