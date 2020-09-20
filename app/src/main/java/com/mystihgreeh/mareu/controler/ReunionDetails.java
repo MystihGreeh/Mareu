@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ActionBar;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.widget.TextView;
@@ -13,6 +14,8 @@ import com.mystihgreeh.mareu.R;
 import com.mystihgreeh.mareu.DI.Injection;
 import com.mystihgreeh.mareu.model.Reunion;
 import com.mystihgreeh.mareu.service.ReunionApiService;
+
+import java.util.Calendar;
 
 public class ReunionDetails extends AppCompatActivity {
 
@@ -48,9 +51,8 @@ public class ReunionDetails extends AppCompatActivity {
         reunion = intent.getParcelableExtra("reunion");
         assert reunion != null;
         mRoom.setText(reunion.getRoom());
-        mTime.setText(reunion.getDate());
+        mDate.setText(reunion.getRoom());
         mTime.setText(reunion.getTime());
-        //mDate.setText(DateFormat.format("dd/MM/yyyy", reunion.getDate()));
         mReunionObject.setText(reunion.getObject());
         mEmails.setText(reunion.getEmails());
 

@@ -3,6 +3,7 @@ package com.mystihgreeh.mareu.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
@@ -13,7 +14,7 @@ public class Reunion implements Parcelable {
     private String room;
 
     /** date */
-    private String date;
+    private Date date;
 
     /** Time */
     private String time;
@@ -33,7 +34,7 @@ public class Reunion implements Parcelable {
      * @param room
      * @param emails
      */
-    public Reunion(String object, String date, String time, String room, String emails){
+    public Reunion(String object, Date date, String time, String room, String emails){
         this.room = room;
         this.date = date;
         this.time = time;
@@ -43,8 +44,7 @@ public class Reunion implements Parcelable {
 
     protected Reunion(Parcel in) {
         object = in.readString();
-        date = in.readString();
-        //date = new Date (in.readLong());
+        date = (java.util.Date) in.readSerializable();
         time = in.readString();
         room = in.readString();
         emails = in.readString();
@@ -70,8 +70,8 @@ public class Reunion implements Parcelable {
         this.object = object;
     }
 
-    public String getDate() { return date;}
-    public void setDate(String date) {this.date = date;}
+    public Date getDate() { return date;}
+    public void setDate(Date date) {this.date = date;}
 
     public String getTime() {
         return time;
@@ -119,8 +119,7 @@ public class Reunion implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
 
             dest.writeString(object);
-            dest.writeString(date);
-            //dest.writeLong(date.getTime());
+            dest.writeLong(date.getTime());
             dest.writeString(time);
             dest.writeString(room);
             dest.writeString(emails);

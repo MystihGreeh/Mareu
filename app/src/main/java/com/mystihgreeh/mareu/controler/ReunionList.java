@@ -25,19 +25,15 @@ import com.mystihgreeh.mareu.DI.Injection;
 import com.mystihgreeh.mareu.events.DeleteReunionEvent;
 import com.mystihgreeh.mareu.model.Reunion;
 import com.mystihgreeh.mareu.model.Room;
-import com.mystihgreeh.mareu.service.DummyRoomGenerator;
 import com.mystihgreeh.mareu.service.ReunionApiService;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 import java.util.Objects;
 
 public class ReunionList extends AppCompatActivity {
@@ -47,6 +43,7 @@ public class ReunionList extends AppCompatActivity {
 
     private List<Reunion> mReunion;
     private List<Room> mRoom;
+    List<Reunion> mReunionListFiltered = new ArrayList<>();
     private FloatingActionButton mButton;
 
     Spinner roomSpinner;
@@ -90,6 +87,7 @@ public class ReunionList extends AppCompatActivity {
         mRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         initList();
 
+
         mButton = findViewById(R.id.addButton);
         roomSpinner = findViewById(R.id.menu_filter_by_room);
 
@@ -114,8 +112,11 @@ public class ReunionList extends AppCompatActivity {
     private void initList() {
         mReunion = mApiService.getReunions();
         mRoom = mApiService.getRooms();
-        mRecyclerView.setAdapter(new MyReunionListRecyclerViewAdapter(mReunion, mRoom));
+        // Filter the list if one is set
+        mReunionListFiltered = mApiService.reunionListFilter(isDateFiltered, isLocationFiltered, roomFilterSelected, dateFilterSelected);
+        mRecyclerView.setAdapter(new MyReunionListRecyclerViewAdapter(mReunionListFiltered, mRoom));
     }
+
 
     @Override
     public void onResume() {
@@ -157,16 +158,23 @@ public class ReunionList extends AppCompatActivity {
         super.onDestroy();
     }
 
-    /*@Override
+
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == 1 && data != null) {
-            Reunion reunion = new Reunion(data.getStringExtra("object"), data.getStringExtra("date"), data.getStringExtra("time"), data.getStringExtra("room"), data.getStringExtra("emails"));
+            Date date = new Date();
+            Reunion reunion = new Reunion(data.getStringExtra("object"),
+                    data.getExtras(),
+                    data.getStringExtra("time"),
+                    data.getStringExtra("room"),
+                    data.getStringExtra("emails"));
             mApiService.createReunion(reunion);
             initList();
         }
-    }*/
+    }
 
 
 

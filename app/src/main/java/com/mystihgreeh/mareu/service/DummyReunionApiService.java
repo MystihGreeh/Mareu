@@ -17,7 +17,7 @@ import java.util.List;
 public class DummyReunionApiService implements ReunionApiService {
 
     private List<Reunion> reunions = DummyReunionGenerator.generateReunion();
-    private List<Room> rooms = DummyRoomGenerator.generateRoom();
+    private List<Room> rooms = DummyReunionGenerator.generateRoom();
 
 
     /**
@@ -66,32 +66,32 @@ public class DummyReunionApiService implements ReunionApiService {
             for (int i = 0; i < getReunions().size(); i++) {
 
                 // Difference of rooms
-                String sMeetingLocation = getReunions().get(i).getRoom();
-                boolean boolLocation = sMeetingLocation.equals(roomFilterSelected);
+                String sReunionLocation = getReunions().get(i).getRoom();
+                boolean booleanLocation = sReunionLocation.equals(roomFilterSelected);
 
                 // difference of dates (with calendars)
                 Calendar cal1 = Calendar.getInstance();
                 Calendar cal2 = Calendar.getInstance();
-                //cal1.setTime(getReunions().get(i).getDate());
+                cal1.setTime(getReunions().get(i).getDate());
                 if (dateFilterSelected != null){
                     cal2.setTime(dateFilterSelected);
                 }
 
-                boolean boolDate = cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR) &&
+                boolean booleanDate = cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR) &&
                         cal1.get(Calendar.MONTH) == cal2.get(Calendar.MONTH) &&
                         cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR);
 
                 // If both are filtered and match filter, add the reunion to the list
                 if (isLocationFiltered && isDateFiltered) {
-                    if (boolLocation && boolDate) { reunionArrayList.add(getReunions().get(i)); }
+                    if (booleanLocation && booleanDate) { reunionArrayList.add(getReunions().get(i)); }
 
                     // If only the room is filtered and match filter, add the reunion to the list
                 } else if (isLocationFiltered) {
-                    if (boolLocation) { reunionArrayList.add(getReunions().get(i)); }
+                    if (booleanLocation) { reunionArrayList.add(getReunions().get(i)); }
 
                     // If only the date is filtered and match filter, add the reunion to the list
                 } else {
-                    if (boolDate) { reunionArrayList.add(getReunions().get(i)); }
+                    if (booleanDate) { reunionArrayList.add(getReunions().get(i)); }
                 }
             }
             // Without filter, show all reunions

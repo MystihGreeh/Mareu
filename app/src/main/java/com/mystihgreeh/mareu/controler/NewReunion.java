@@ -17,21 +17,17 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TimePicker;
-import android.widget.Toast;
-import android.widget.Toolbar;
 
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
 
-import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.mystihgreeh.mareu.DI.Injection;
 import com.mystihgreeh.mareu.R;
-import com.mystihgreeh.mareu.model.Reunion;
 import com.mystihgreeh.mareu.model.Room;
-import com.mystihgreeh.mareu.service.DummyRoomGenerator;
+import com.mystihgreeh.mareu.service.DummyReunionGenerator;
 import com.mystihgreeh.mareu.service.ReunionApiService;
 
 import java.text.SimpleDateFormat;
@@ -39,7 +35,6 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
-import java.util.regex.Pattern;
 
 
 public class NewReunion extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
@@ -85,7 +80,7 @@ public class NewReunion extends AppCompatActivity implements AdapterView.OnItemS
         });
 
         @SuppressLint("CutPasteId") Spinner spinner = findViewById(R.id.roomList);
-        List<Room> roomList = Arrays.asList(DummyRoomGenerator.getListRooms());
+        List<Room> roomList = Arrays.asList(DummyReunionGenerator.getListRooms());
         ArrayAdapter adapter = new ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, roomList);
         adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
