@@ -3,7 +3,6 @@ package com.mystihgreeh.mareu.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
@@ -44,7 +43,7 @@ public class Reunion implements Parcelable {
 
     protected Reunion(Parcel in) {
         object = in.readString();
-        date = (java.util.Date) in.readSerializable();
+        date = new Date(in.readLong());
         time = in.readString();
         room = in.readString();
         emails = in.readString();
@@ -119,7 +118,7 @@ public class Reunion implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
 
             dest.writeString(object);
-            dest.writeLong(date.getTime());
+            if (date!= null){dest.writeLong(date.getTime());}
             dest.writeString(time);
             dest.writeString(room);
             dest.writeString(emails);

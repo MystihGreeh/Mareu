@@ -46,11 +46,14 @@ public class ReunionList extends AppCompatActivity {
     List<Reunion> mReunionListFiltered = new ArrayList<>();
     private FloatingActionButton mButton;
 
+
     Spinner roomSpinner;
     Boolean isDateFiltered = false;
     Boolean isLocationFiltered = false;
     Date dateFilterSelected;
     String roomFilterSelected = "";
+    Date date;
+
     public static String[] ROOM_LIST = {
 
             new String("Luigi"),
@@ -60,6 +63,7 @@ public class ReunionList extends AppCompatActivity {
             new String("Toad"),
 
     };;
+
     private Room room;
 
 
@@ -86,8 +90,6 @@ public class ReunionList extends AppCompatActivity {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         initList();
-
-
         mButton = findViewById(R.id.addButton);
         roomSpinner = findViewById(R.id.menu_filter_by_room);
 
@@ -165,16 +167,16 @@ public class ReunionList extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == 1 && data != null) {
-            Date date = new Date();
             Reunion reunion = new Reunion(data.getStringExtra("object"),
-                    data.getExtras(),
+                    date = new Date (data.getLongExtra("date", -1)),
                     data.getStringExtra("time"),
                     data.getStringExtra("room"),
                     data.getStringExtra("emails"));
-            mApiService.createReunion(reunion);
+            mApiService.addReunion(reunion);
             initList();
         }
     }
+
 
 
 

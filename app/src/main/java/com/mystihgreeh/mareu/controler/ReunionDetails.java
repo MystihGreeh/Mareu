@@ -1,21 +1,20 @@
 package com.mystihgreeh.mareu.controler;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ActionBar;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.text.format.DateFormat;
 import android.widget.TextView;
 import android.widget.Toolbar;
 
-import com.mystihgreeh.mareu.R;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.mystihgreeh.mareu.DI.Injection;
+import com.mystihgreeh.mareu.R;
 import com.mystihgreeh.mareu.model.Reunion;
 import com.mystihgreeh.mareu.service.ReunionApiService;
 
-import java.util.Calendar;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class ReunionDetails extends AppCompatActivity {
 
@@ -25,6 +24,7 @@ public class ReunionDetails extends AppCompatActivity {
     TextView mReunionObject;
     TextView mEmails;
     Toolbar toolbar;
+    Date datePicked;
 
     Reunion reunion;
     ReunionApiService mApiService;
@@ -45,13 +45,18 @@ public class ReunionDetails extends AppCompatActivity {
 
 
 
+
+
         //Get the reunion information
         mApiService = Injection.getReunionApiService();
         Intent intent = getIntent();
+
         reunion = intent.getParcelableExtra("reunion");
         assert reunion != null;
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
         mRoom.setText(reunion.getRoom());
-        mDate.setText(reunion.getRoom());
+        mDate.setText(simpleDateFormat.format(reunion.getDate()));
+       // mDate.setText(reunion.getDate().toString());
         mTime.setText(reunion.getTime());
         mReunionObject.setText(reunion.getObject());
         mEmails.setText(reunion.getEmails());

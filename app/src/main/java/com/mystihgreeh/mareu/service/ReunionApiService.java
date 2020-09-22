@@ -34,7 +34,7 @@ public interface ReunionApiService {
      * Create a reunion
      * @param reunion
      */
-    void createReunion(Reunion reunion);
+    void addReunion(Reunion reunion);
 
     List<Reunion> reunionListFilter (boolean isDateFiltered, boolean isLocationFiltered, String roomFilterSelected, Date dateFilterSelected);
 

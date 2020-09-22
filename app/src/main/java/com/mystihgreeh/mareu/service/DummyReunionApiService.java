@@ -5,7 +5,6 @@ import com.mystihgreeh.mareu.model.Reunion;
 import com.mystihgreeh.mareu.model.Room;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -43,7 +42,7 @@ public class DummyReunionApiService implements ReunionApiService {
      * @param reunion
      */
     @Override
-    public void createReunion(Reunion reunion) {
+    public void addReunion(Reunion reunion) {
         reunions.add(reunion);
     }
 

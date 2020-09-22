@@ -2,7 +2,6 @@ package com.mystihgreeh.mareu.controler;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +21,6 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
-import static android.media.CamcorderProfile.get;
 
 
 public class MyReunionListRecyclerViewAdapter extends RecyclerView.Adapter<MyReunionListRecyclerViewAdapter.ViewHolder> {
@@ -77,10 +75,11 @@ public class MyReunionListRecyclerViewAdapter extends RecyclerView.Adapter<MyReu
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), ReunionDetails.class);
-                intent.putExtra("reunion", (Parcelable) reunion);
+                intent.putExtra("reunion", reunion);
                 v.getContext().startActivity(intent);
             }
         });
+
 
     }
 

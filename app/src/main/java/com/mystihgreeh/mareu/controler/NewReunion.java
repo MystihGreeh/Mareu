@@ -18,7 +18,6 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TimePicker;
 
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
@@ -26,6 +25,7 @@ import androidx.fragment.app.FragmentActivity;
 import com.google.android.material.textfield.TextInputLayout;
 import com.mystihgreeh.mareu.DI.Injection;
 import com.mystihgreeh.mareu.R;
+import com.mystihgreeh.mareu.model.Reunion;
 import com.mystihgreeh.mareu.model.Room;
 import com.mystihgreeh.mareu.service.DummyReunionGenerator;
 import com.mystihgreeh.mareu.service.ReunionApiService;
@@ -33,6 +33,7 @@ import com.mystihgreeh.mareu.service.ReunionApiService;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -47,6 +48,11 @@ public class NewReunion extends AppCompatActivity implements AdapterView.OnItemS
     TextInputLayout emails;
     Button addButton;
     ReunionApiService mApiService;
+    Date datePicked;
+    String roomSelected;
+    String timeSelected;
+    String participants;
+    String reunionObject;
 
 
     @Override
@@ -57,19 +63,30 @@ public class NewReunion extends AppCompatActivity implements AdapterView.OnItemS
         this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         this.getSupportActionBar().setTitle("Nouvelle réunion");
 
+        initialisation();
+    }
 
+    //INITIALISATION
+
+    private void initialisation() {
         room = findViewById(R.id.roomList);
         date_in = findViewById(R.id.date);
         time_in = findViewById(R.id.time);
         object = findViewById(R.id.reunion_object);
         emails = findViewById(R.id.emailsLyt);
         addButton = findViewById(R.id.save);
-
-
         mApiService = Injection.getNewInstanceApiService();
-
         date_in.setInputType(InputType.TYPE_NULL);
         time_in.setInputType(InputType.TYPE_NULL);
+
+
+        //Opening Room Spinner on click
+        @SuppressLint("CutPasteId") Spinner spinner = findViewById(R.id.roomList);
+        List<Room> roomList = Arrays.asList(DummyReunionGenerator.getListRooms());
+        ArrayAdapter adapter = new ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, roomList);
+        adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(this);
 
         //Opening the date picker on click
         date_in.setOnClickListener(new View.OnClickListener() {
@@ -79,64 +96,57 @@ public class NewReunion extends AppCompatActivity implements AdapterView.OnItemS
             }
         });
 
-        @SuppressLint("CutPasteId") Spinner spinner = findViewById(R.id.roomList);
-        List<Room> roomList = Arrays.asList(DummyReunionGenerator.getListRooms());
-        ArrayAdapter adapter = new ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, roomList);
-        adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(this);
-
-
         //Opening the time picker on click
         time_in.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showTimeDialog(time_in);
-            }
+                showTimeDialog(time_in); }
         });
-
 
 
         //Book the reunion when user click on addButton
         addButton.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
+                Reunion reunion = new Reunion(roomSelected, datePicked, timeSelected, reunionObject, participants);
+                Calendar startCalendar = Calendar.getInstance();
                 if (!validateEmailAddress()) return;
-                Intent intent = new Intent();
-                intent.putExtra("room", room.getSelectedItem().toString());
-                intent.putExtra("date", date_in.getText().toString());
-                intent.putExtra("time", time_in.getText().toString());
-                intent.putExtra("object", object.getText().toString());
-                intent.putExtra("emails", Objects.requireNonNull(emails.getEditText()).getText().toString());
-                setResult(1, intent);
+                initFields(startCalendar);
                 finish();
+
             }
         });
     }
+
+    private void initFields(Calendar startCalendar) {
+        Intent intent = new Intent();
+        intent.putExtra("room", room.getSelectedItem().toString());
+        intent.putExtra("date", datePicked.getTime());
+        intent.putExtra("time", time_in.getText().toString());
+        intent.putExtra("object", object.getText().toString());
+        intent.putExtra("emails", Objects.requireNonNull(emails.getEditText()).getText().toString());
+        setResult(1, intent);
+    }
+
     // Emails must be valid email address
     private boolean validateEmailAddress() {
         String emailInput = emails.getEditText().getText().toString().trim();
-
         if (Patterns.EMAIL_ADDRESS.matcher(emailInput).matches()){
             emails.setError(null);
         return true;}
-
         if (emailInput.isEmpty()) {
             emails.setError("Field can't be empty");
             return false;
-
         } else if (!Patterns.EMAIL_ADDRESS.matcher(emailInput).matches()) {
             emails.setError("Please enter a valid email address");
-            return false;
-        }
+            return false; }
         return false;
     }
 
 
 
 
-                //////////////// DATE AND TIME PICKER ////////////////////
+                //////////////// SETTING DATE AND TIME PICKER ////////////////////
 
 
     //Setting time picker
@@ -168,7 +178,8 @@ public class NewReunion extends AppCompatActivity implements AdapterView.OnItemS
                 calendar.set(Calendar.MONTH, month);
                 calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
                 @SuppressLint("SimpleDateFormat") SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-                date_in.setText(simpleDateFormat.format(calendar.getTime()));
+                datePicked = calendar.getTime();
+                date_in.setText(simpleDateFormat.format(datePicked));
             }
         };
         DatePickerDialog dateDialog = new DatePickerDialog(NewReunion.this, dateSetListener, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
