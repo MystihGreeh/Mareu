@@ -14,6 +14,7 @@ import java.util.Objects;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 ;
 
@@ -38,4 +39,13 @@ public class ReunionTest {
         service.deleteReunion(reunionToDelete);
         assertFalse(service.getReunions().contains(reunionToDelete));
     }
+
+    @Test
+    public void addReunionWithSuccess() {
+        Reunion reunionToAdd = service.getReunions().get(0);
+        service.addReunion(reunionToAdd);
+        assertTrue(service.getReunions().contains(reunionToAdd));
+    }
+
+
 }

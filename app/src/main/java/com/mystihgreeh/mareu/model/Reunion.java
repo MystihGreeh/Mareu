@@ -3,6 +3,7 @@ package com.mystihgreeh.mareu.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Objects;
 
@@ -36,6 +37,16 @@ public class Reunion implements Parcelable {
     public Reunion(String object, Date date, String time, String room, String emails){
         this.room = room;
         this.date = date;
+        this.time = time;
+        this.object = object;
+        this.emails = emails;
+    }
+
+    public Reunion(String object, Long date, String time, String room, String emails){
+        this.room = room;
+        Calendar c = Calendar.getInstance();
+        c.setTimeInMillis(date);
+        this.date = c.getTime();
         this.time = time;
         this.object = object;
         this.emails = emails;

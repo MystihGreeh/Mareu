@@ -6,16 +6,15 @@ import com.mystihgreeh.mareu.model.Room;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 public abstract class DummyReunionGenerator {
 
     public static List<Reunion> DUMMY_REUNIONS = Arrays.asList(
-            new Reunion("Réunion A", new Date(1600779600), "14:00", "Peach", "maxime@lamzone.fr, alex@lamzone.fr"),
-            new Reunion("Réunion B", new Date(1600709618), "15:00", "Luigi", "amandine@lamzone.fr, luc@lamzone.fr"),
-            new Reunion("Réunion A", new Date(1600623218), "17:00", "Bowser", "maxime@lamzone.fr, charlotte@lamzone.fr, jarvis@lamzone.fr"),
-            new Reunion("Réunion D", new Date(1600623218), "16:00", "Toad", "amandine@lamzone.fr, viviane@lamzone.fr"));
+            new Reunion("Réunion A", 1600779600L, "14:00", "Peach", "maxime@lamzone.fr, alex@lamzone.fr"),
+            new Reunion("Réunion B", 1600709618L, "15:00", "Luigi", "amandine@lamzone.fr, luc@lamzone.fr"),
+            new Reunion("Réunion A", 1600623218L, "17:00", "Bowser", "maxime@lamzone.fr, charlotte@lamzone.fr, jarvis@lamzone.fr"),
+            new Reunion("Réunion D", 1600623218L, "16:00", "Toad", "amandine@lamzone.fr, viviane@lamzone.fr"));
 
     static List<Reunion> generateReunion() {
         return new ArrayList<>(DUMMY_REUNIONS);

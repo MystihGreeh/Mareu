@@ -60,8 +60,5 @@ public class ReunionDetails extends AppCompatActivity {
         mTime.setText(reunion.getTime());
         mReunionObject.setText(reunion.getObject());
         mEmails.setText(reunion.getEmails());
-
-
-
     }
 }
