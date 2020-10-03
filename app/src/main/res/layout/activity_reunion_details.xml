@@ -11,7 +11,11 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:ignore="MissingConstraints">
+        app:layout_constraintBottom_toBottomOf="@id/details"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="NotSibling">
 
 
 
@@ -20,9 +24,7 @@
             android:id="@+id/details"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
+            android:layout_margin="@dimen/fab_margin"
             app:cardCornerRadius="15dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -38,7 +40,7 @@
                 android:textColor="@color/white"
                 android:text="Salle :"
                 android:textSize="18sp"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop = "35dp" />
             <TextView
                 android:id="@+id/room"
@@ -46,7 +48,6 @@
                 android:layout_height="50dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginTop="20dp"
-                android:layout_marginRight="15dp"
                 android:layout_marginBottom="200dp"
                 android:background="@color/white"
                 android:paddingTop="13dp"
@@ -64,14 +65,13 @@
                 android:textColor="@color/white"
                 android:text="Le :"
                 android:textSize="18sp"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop = "135dp"/>
             <TextView
                 android:id="@+id/date"
                 android:layout_height="50dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginTop="120dp"
-                android:layout_marginBottom="200dp"
                 android:layout_width="match_parent"
                 android:background="@color/white"
                 android:text="Mardi 02 juin 2020"
@@ -89,7 +89,7 @@
                 android:textColor="@color/white"
                 android:text="A :"
                 android:textSize="18sp"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop = "235dp" />
             <TextView
                 android:id="@+id/time"
@@ -97,7 +97,6 @@
                 android:layout_width="match_parent"
                 android:layout_marginEnd="16dp"
                 android:layout_marginTop="220dp"
-                android:layout_marginBottom="200dp"
                 android:background="@color/white"
                 android:text="14h30 - 15h30"
                 android:textAlignment="center"
@@ -114,7 +113,7 @@
                 android:textColor="@color/white"
                 android:text="Objet :"
                 android:textSize="18sp"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop = "335dp" />
             <TextView
                 android:id="@+id/reunion_details"
@@ -123,7 +122,6 @@
                 android:layout_width="match_parent"
                 android:layout_marginEnd="16dp"
                 android:layout_marginTop="320dp"
-                android:layout_marginBottom="300dp"
                 android:background="@color/white"
                 android:textAlignment="center"
                 android:paddingTop="13dp"
@@ -139,7 +137,7 @@
                 android:textColor="@color/white"
                 android:text="e-mail :"
                 android:textSize="18sp"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop = "435dp"/>
             <TextView
                 android:id="@+id/emails"
@@ -147,6 +145,7 @@
                 android:layout_width="match_parent"
                 android:layout_marginEnd="16dp"
                 android:layout_marginTop="420dp"
+                android:layout_marginBottom="@dimen/fab_margin"
                 android:background="@color/white"
                 android:text="@string/people"
                 android:textAlignment="center"
