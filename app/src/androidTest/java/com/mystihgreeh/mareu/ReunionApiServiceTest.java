@@ -37,7 +37,7 @@ public class ReunionApiServiceTest {
      * */
     @Test
     public void deleteReunionWithSuccess() {
-        Reunion reunionToDelete = service.getReunions().get(0);
+        Reunion reunionToDelete = service.getReunions().get(1);
         service.deleteReunion(reunionToDelete);
         assertFalse(service.getReunions().contains(reunionToDelete));
     }

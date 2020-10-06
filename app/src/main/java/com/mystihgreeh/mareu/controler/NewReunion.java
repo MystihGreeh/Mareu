@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
-import android.util.Patterns;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -60,7 +59,7 @@ public class NewReunion extends AppCompatActivity implements AdapterView.OnItemS
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_reunion);
         ActionBar actionBar = getActionBar();
-        this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(this.getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         this.getSupportActionBar().setTitle("Nouvelle réunion");
 
         initialisation();
@@ -110,7 +109,6 @@ public class NewReunion extends AppCompatActivity implements AdapterView.OnItemS
             public void onClick(View v) {
                 Reunion reunion = new Reunion(roomSelected, datePicked, timeSelected, reunionObject, participants);
                 Calendar startCalendar = Calendar.getInstance();
-                if (!validateEmailAddress()) return;
                 initFields(startCalendar);
                 finish();
 
@@ -128,20 +126,6 @@ public class NewReunion extends AppCompatActivity implements AdapterView.OnItemS
         setResult(1, intent);
     }
 
-    // Emails must be valid email address
-    private boolean validateEmailAddress() {
-        String emailInput = emails.getEditText().getText().toString().trim();
-        if (Patterns.EMAIL_ADDRESS.matcher(emailInput).matches()){
-            emails.setError(null);
-        return true;}
-        if (emailInput.isEmpty()) {
-            emails.setError("Field can't be empty");
-            return false;
-        } else if (!Patterns.EMAIL_ADDRESS.matcher(emailInput).matches()) {
-            emails.setError("Please enter a valid email address");
-            return false; }
-        return false;
-    }
 
 
 

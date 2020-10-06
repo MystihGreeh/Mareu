@@ -1,13 +1,10 @@
 package com.mystihgreeh.mareu.model;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
-import java.util.Calendar;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
-public class Reunion implements Parcelable {
+public class Reunion implements Serializable {
 
 
     /** Room name */
@@ -41,36 +38,6 @@ public class Reunion implements Parcelable {
         this.object = object;
         this.emails = emails;
     }
-
-    public Reunion(String object, Long date, String time, String room, String emails){
-        this.room = room;
-        Calendar c = Calendar.getInstance();
-        c.setTimeInMillis(date);
-        this.date = c.getTime();
-        this.time = time;
-        this.object = object;
-        this.emails = emails;
-    }
-
-    protected Reunion(Parcel in) {
-        object = in.readString();
-        date = new Date(in.readLong());
-        time = in.readString();
-        room = in.readString();
-        emails = in.readString();
-    }
-
-    public static final Creator<Reunion> CREATOR = new Creator<Reunion>() {
-        @Override
-        public Reunion createFromParcel(Parcel in) {
-            return new Reunion(in);
-        }
-
-        @Override
-        public Reunion[] newArray(int size) {
-            return new Reunion[size];
-        }
-    };
 
 
     public String getObject() {
@@ -120,31 +87,5 @@ public class Reunion implements Parcelable {
     public void add(Reunion reunion) {
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-
-            dest.writeString(object);
-            if (date!= null){dest.writeLong(date.getTime());}
-            dest.writeString(time);
-            dest.writeString(room);
-            dest.writeString(emails);
-    }
-
-    public boolean completeReunion()
-    {
-        if (object != null && date != null && time !=null && room!= null && emails!= null)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
 
 }
