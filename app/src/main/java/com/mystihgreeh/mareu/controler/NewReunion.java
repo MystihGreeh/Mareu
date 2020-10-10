@@ -1,7 +1,6 @@
 package com.mystihgreeh.mareu.controler;
 
 import android.annotation.SuppressLint;
-import android.app.ActionBar;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
@@ -58,7 +57,6 @@ public class NewReunion extends AppCompatActivity implements AdapterView.OnItemS
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_reunion);
-        ActionBar actionBar = getActionBar();
         Objects.requireNonNull(this.getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         this.getSupportActionBar().setTitle("Nouvelle réunion");
 
@@ -108,15 +106,14 @@ public class NewReunion extends AppCompatActivity implements AdapterView.OnItemS
             @Override
             public void onClick(View v) {
                 Reunion reunion = new Reunion(roomSelected, datePicked, timeSelected, reunionObject, participants);
-                Calendar startCalendar = Calendar.getInstance();
-                initFields(startCalendar);
+                initFields();
                 finish();
 
             }
         });
     }
 
-    private void initFields(Calendar startCalendar) {
+    private void initFields() {
         Intent intent = new Intent();
         intent.putExtra("room", room.getSelectedItem().toString());
         intent.putExtra("date", datePicked.getTime());

@@ -1,7 +1,6 @@
 package com.mystihgreeh.mareu.controler;
 
 import android.annotation.SuppressLint;
-import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
@@ -32,7 +31,6 @@ public class ReunionDetails extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reunion_details);
-        ActionBar actionBar = getActionBar();
         Objects.requireNonNull(this.getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         this.getSupportActionBar().setTitle("Détails de la réunion");
 

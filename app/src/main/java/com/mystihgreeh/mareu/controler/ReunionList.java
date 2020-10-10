@@ -62,24 +62,8 @@ public class ReunionList extends AppCompatActivity {
             new String("Bowser"),
             new String("Toad"),
 
-    };;
+    };
 
-    private Room room;
-
-
-
-    /**
-     *
-     * Create and return a new instance
-     *
-     * @return @{@link ReunionList}
-     */
-    public static ReunionList newInstance() {
-        ReunionList fragment;
-        fragment = new ReunionList();
-        return fragment;
-
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

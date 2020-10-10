@@ -48,4 +48,50 @@ public class ReunionTest {
     }
 
 
+    @Test
+    public void filterByRoomWithSuccess() {
+        int testIndex = 1;
+        Reunion reunionWanted = service.getReunions().get(testIndex);
+        List<Reunion> filteredReunions = service.reunionListFilter(false, true, reunionWanted.getRoom(), reunionWanted.getDate());
+        int nReunionTheSameRoom = 0;
+        for (int i=0; i < service.getReunions().size(); i++) {
+            if (!service.getReunions().get(i).getRoom().equals(reunionWanted.getRoom()))
+                continue;
+            nReunionTheSameRoom++;
+        }
+        assertTrue(filteredReunions.contains(reunionWanted));
+        assertFalse(filteredReunions.size() > nReunionTheSameRoom);
+    }
+
+    @Test
+    public void filterByDateWithSuccess() {
+        int testIndex = 1;
+        Reunion reunionWanted = service.getReunions().get(testIndex);
+        List<Reunion> filteredReunions = service.reunionListFilter(true, false, reunionWanted.getRoom(), reunionWanted.getDate());
+        int nReunionTheSameDate = 0;
+        for (int i=0; i < service.getReunions().size(); i++) {
+            if (!service.getReunions().get(i).getRoom().equals(reunionWanted.getRoom()))
+                continue;
+            nReunionTheSameDate++;
+        }
+        assertTrue(filteredReunions.contains(reunionWanted));
+        assertFalse(filteredReunions.size() > nReunionTheSameDate);
+    }
+
+    @Test
+    public void filterMeetingWithSuccess() {
+        int testIndex = 1;
+        Reunion reunionWanted = service.getReunions().get(testIndex);
+        List<Reunion> filteredReunions = service.reunionListFilter(true, true, reunionWanted.getRoom(), reunionWanted.getDate());
+        int nReunionTheSameDayAndRoom = 0;
+        for (int i=0; i < service.getReunions().size(); i++) {
+            if (!service.getReunions().get(i).getRoom().equals(reunionWanted.getRoom()))
+                continue;
+            nReunionTheSameDayAndRoom++;
+        }
+        assertTrue(filteredReunions.contains(reunionWanted));
+        assertFalse(filteredReunions.size() > nReunionTheSameDayAndRoom);
+    }
+
+
 }

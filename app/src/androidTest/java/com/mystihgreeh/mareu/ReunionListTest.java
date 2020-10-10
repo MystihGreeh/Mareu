@@ -42,7 +42,6 @@ public class ReunionListTest {
     // This is fixed
     private static int ITEMS_COUNT_ONE = 5;
     private static int ITEMS_COUNT_TWO = 4;
-    private ReunionList mReunionList;
     private int positionTest = 0;
     private String roomName = "Mario"; // Can be any other room name
     private ReunionApiService service = Injection.getNewInstanceApiService();
